@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "game.js",
+  "sourceRoot": "",
+  "sources": [
+    "game.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,KAAA,CAAM,WAAN,CAAA,CAAA;AAAA"
+}
