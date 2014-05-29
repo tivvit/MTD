@@ -4,9 +4,7 @@
     baseUrl: 'js'
   });
 
-  requirejs(['game'], function(game) {
-    return alert("all loaded");
-  });
+  requirejs(['game'], function(game) {});
 
 }).call(this);
 

@@ -4,5 +4,5 @@ requirejs.config({
 
 requirejs(['game'],
 (game) ->
-  alert "all loaded";
+  #alert "all loaded";
 );
