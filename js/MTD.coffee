@@ -4,5 +4,7 @@ requirejs.config({
 
 requirejs(['game'],
 (game) ->
+  g = new Game;
+  g.draw();
   #alert "all loaded";
 );

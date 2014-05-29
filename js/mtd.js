@@ -4,7 +4,11 @@
     baseUrl: 'js'
   });
 
-  requirejs(['game'], function(game) {});
+  requirejs(['game'], function(game) {
+    var g;
+    g = new Game;
+    return g.draw();
+  });
 
 }).call(this);
 

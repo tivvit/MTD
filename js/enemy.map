@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "enemy.js",
+  "sourceRoot": "",
+  "sources": [
+    "enemy.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,KAAA;;AAAA,EAAM;uBAAN;;iBAAA;;MAAA,CAAA;AAAA"
+}

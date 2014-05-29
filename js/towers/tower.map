@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "tower.js",
+  "sourceRoot": "",
+  "sources": [
+    "tower.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,KAAA;;AAAA,EAAM;AACJ,QAAA,aAAA;;uBAAA;;AAAA,IAAA,MAAA,GAAS,CAAT,CAAA;;AAAA,IACA,KAAA,GAAQ,CADR,CAAA;;iBAAA;;MADF,CAAA;AAAA"
+}
