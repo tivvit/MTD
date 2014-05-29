@@ -1,0 +1,10 @@
+{
+    "name": "MTD",
+    "authors": [
+        "tivvit <tivvit@seznam.cz>"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "requirejs": "latest"
+    }
+}
