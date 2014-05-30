@@ -78,6 +78,9 @@ class Game
     @hostPlayer.draw(@ctx);
     @opponent.draw(@ctx);
 
+    document.querySelector("#lives").innerText = @hostPlayer.lives;
+    document.querySelector("#coins").innerText = @hostPlayer.money;
+
   showBlocked: ->
     @ctx.fillStyle = "rgba(250, 0, 0, .1)";
     @ctx.fillRect(gridSize*blockSize, 0, size.x, size.y);
