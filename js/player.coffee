@@ -6,6 +6,7 @@ class Player
     @homePosition =  {x: 0, y: 9};
     @grid = {}
 
+#    grid initialization
     for x in [0...@gridSize]
       inner = {};
       for y in [0...@gridSize]
@@ -14,11 +15,10 @@ class Player
 
 #    check for emptyness
     if Object.keys(@grid).length
-      @grid[@homePosition.x][@homePosition.y] = {"name": "home"};
-    console.log @grid
+      @grid[@homePosition.x][@homePosition.y] = new Home;
 
   draw: (@ctx) ->
-    if(@isOpponent)
+    if @isOpponent
       @shift = @gridSize*@blockSize;
       @homePosition.x = @gridSize-1; #otočení matice
 

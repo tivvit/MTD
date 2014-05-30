@@ -4,7 +4,7 @@
     baseUrl: 'js'
   });
 
-  requirejs(['game', 'player'], function(game, player) {
+  requirejs(['game', 'player', 'home'], function(game, player, home) {
     var g;
     new Player;
     g = new Game;

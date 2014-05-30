@@ -26,11 +26,8 @@
         this.grid[x] = inner;
       }
       if (Object.keys(this.grid).length) {
-        this.grid[this.homePosition.x][this.homePosition.y] = {
-          "name": "home"
-        };
+        this.grid[this.homePosition.x][this.homePosition.y] = new Home;
       }
-      console.log(this.grid);
     }
 
     Player.prototype.draw = function(ctx) {
