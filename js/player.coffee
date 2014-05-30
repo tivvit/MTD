@@ -19,7 +19,9 @@ class Player
       @grid[@homePosition.x][@homePosition.y] = new Home;
 
   draw: (@ctx) ->
-    @copy = @clone(@grid);
+#    console.log @grid;
+#    @copy = @clone(@grid);
+    @copy = @grid;
 
     if @isOpponent
       @shift = @gridSize*@blockSize;

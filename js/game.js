@@ -3,21 +3,65 @@
   var Game;
 
   Game = (function() {
-    var blockSize, grideSize, size;
+    var blockSize, gridSize, size;
 
     size = {
       x: 1200,
       y: 600
     };
 
-    grideSize = 20;
+    gridSize = 20;
 
     blockSize = 30;
 
     function Game() {
-      this.ctx = document.getElementById('game').getContext('2d');
-      this.hostPlayer = new Player(blockSize, grideSize);
-      this.opponent = new Player(blockSize, grideSize, true);
+      var tower, _i, _len, _ref;
+      this.ctx = document.querySelector('#game').getContext('2d');
+      this.hostPlayer = new Player(blockSize, gridSize);
+      this.opponent = new Player(blockSize, gridSize, true);
+      this.draggedOffset = {};
+      this.canvas = document.querySelector('#game');
+      this.canvas.ondragover = (function(_this) {
+        return function(e) {
+          return e.preventDefault();
+        };
+      })(this);
+      this.canvas.ondragenter = (function(_this) {
+        return function(e) {
+          return _this.showBlocked();
+        };
+      })(this);
+      this.canvas.ondragleave = (function(_this) {
+        return function(e) {
+          e.preventDefault();
+          return _this.clear();
+        };
+      })(this);
+      this.canvas.ondrop = (function(_this) {
+        return function(e) {
+          var data;
+          e.preventDefault();
+          data = e.dataTransfer.getData("Name");
+          return _this.clear();
+        };
+      })(this);
+      _ref = document.querySelectorAll('.tower');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        tower = _ref[_i];
+        tower.ondragstart = (function(_this) {
+          return function(e) {
+            return e.dataTransfer.setData("Name", e.target.dataset.name);
+          };
+        })(this);
+        tower.onmousedown = (function(_this) {
+          return function(e) {
+            return _this.draggedOffset = {
+              x: e.pageX,
+              y: e.pageY
+            };
+          };
+        })(this);
+      }
     }
 
     Game.prototype.drawGrid = function() {
@@ -51,6 +95,11 @@
       this.drawSeparator();
       this.hostPlayer.draw(this.ctx);
       return this.opponent.draw(this.ctx);
+    };
+
+    Game.prototype.showBlocked = function() {
+      this.ctx.fillStyle = "rgba(250, 0, 0, .1)";
+      return this.ctx.fillRect(gridSize * blockSize, 0, size.x, size.y);
     };
 
     window.Game = Game;

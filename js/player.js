@@ -34,7 +34,7 @@
     Player.prototype.draw = function(ctx) {
       var half, x, xx, y, _i, _j, _k, _ref, _ref1, _ref2, _results;
       this.ctx = ctx;
-      this.copy = this.clone(this.grid);
+      this.copy = this.grid;
       if (this.isOpponent) {
         this.shift = this.gridSize * this.blockSize;
         for (y = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; y = 0 <= _ref ? ++_i : --_i) {
