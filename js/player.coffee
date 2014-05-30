@@ -18,18 +18,37 @@ class Player
       @grid[@homePosition.x][@homePosition.y] = new Home;
 
   draw: (@ctx) ->
+    @copy = @clone(@grid);
+
     if @isOpponent
       @shift = @gridSize*@blockSize;
-#      @homePosition.x = @gridSize-1; #otočení matice
+
+#      revert matrix
+      for y in [0...@gridSize]
+        for x in [0...@gridSize]
+          half = @gridSize/2;
+          xx = 0;
+          if x > half
+            xx = Math.floor(2 / (x - half));
+            @copy[xx][y] = @grid[x][y];
+          else if x < half
+            xx = (half - x) * 2;
+            @copy[xx-1][y] = @grid[x][y];
 
     for x in [0...@gridSize]
       for y in [0...@gridSize]
-        if Object.keys(@grid[x][y]).length
-          @grid[x][y].draw(@ctx,@shift+x*@blockSize,y*@blockSize)
+        if Object.keys(@copy[x][y]).length
+          @copy[x][y].draw(@ctx,@shift+x*@blockSize,y*@blockSize);
 
-#    image = new Image();
-#    image.src = "img/house.png";
-#    image.onload = =>
-#      @ctx.drawImage(image,@shift+(@homePosition.x*@blockSize),@homePosition.y*@blockSize);
+  clone: (obj) ->
+    if not obj? or typeof obj isnt 'object'
+      return obj
+
+    newInstance = new obj.constructor()
+
+    for key of obj
+      newInstance[key] = @clone obj[key]
+
+    return newInstance
 
   window.Player = Player;
