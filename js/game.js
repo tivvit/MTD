@@ -3,20 +3,54 @@
   var Game;
 
   Game = (function() {
-    var size;
+    var blockSize, grideSize, size;
 
     size = {
       x: 1200,
       y: 600
     };
 
+    grideSize = 20;
+
+    blockSize = 30;
+
     function Game() {
       this.ctx = document.getElementById('game').getContext('2d');
+      this.hostPlayer = new Player(blockSize, grideSize);
+      this.opponent = new Player(blockSize, grideSize, true);
     }
 
-    Game.prototype.draw = function() {
-      this.ctx.fillStyle = "rgb(220, 220, 220)";
-      return this.ctx.fillRect(0, 0, size.x, size.y);
+    Game.prototype.drawGrid = function() {
+      var x, y, _i, _ref, _results;
+      this.ctx.strokeStyle = "rgba(200,200,200, .2)";
+      this.ctx.lineWidth = 1;
+      this.ctx.str;
+      _results = [];
+      for (y = _i = 0, _ref = size.x - blockSize; blockSize > 0 ? _i <= _ref : _i >= _ref; y = _i += blockSize) {
+        _results.push((function() {
+          var _j, _ref1, _results1;
+          _results1 = [];
+          for (x = _j = 0, _ref1 = size.x - blockSize; blockSize > 0 ? _j <= _ref1 : _j >= _ref1; x = _j += blockSize) {
+            _results1.push(this.ctx.strokeRect(x, y, blockSize, blockSize));
+          }
+          return _results1;
+        }).call(this));
+      }
+      return _results;
+    };
+
+    Game.prototype.drawSeparator = function() {
+      this.ctx.fillStyle = "black";
+      return this.ctx.fillRect(size.x / 2, 0, 1, size.y);
+    };
+
+    Game.prototype.clear = function() {
+      this.ctx.fillStyle = "rgb(230, 230, 230)";
+      this.ctx.fillRect(0, 0, size.x, size.y);
+      this.drawGrid();
+      this.drawSeparator();
+      this.hostPlayer.draw(this.ctx);
+      return this.opponent.draw(this.ctx);
     };
 
     window.Game = Game;

@@ -2,9 +2,10 @@ requirejs.config({
   baseUrl: 'js'
 });
 
-requirejs(['game'],
-(game) ->
+requirejs(['game', 'player'],
+(game, player) ->
+  new Player;
   g = new Game;
-  g.draw();
+  g.clear();
   #alert "all loaded";
 );

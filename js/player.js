@@ -3,11 +3,68 @@
   var Player;
 
   Player = (function() {
-    var lives;
+    function Player(blockSize, gridSize, isOpponent) {
+      var inner, x, y, _i, _j, _ref, _ref1;
+      this.blockSize = blockSize;
+      this.gridSize = gridSize;
+      this.isOpponent = isOpponent;
+      this.shift = 0;
+      this.lives = 10;
+      if (this.isOpponent == null) {
+        this.isOpponent = false;
+      }
+      this.homePosition = {
+        x: 0,
+        y: 9
+      };
+      this.grid = {};
+      x = 0;
+      for (x = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
+        inner = {};
+        y = 0;
+        for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
+          inner[y] = {};
+          y++;
+        }
+        this.grid[x] = inner;
+        x++;
+      }
+      if (Object.keys(this.grid).length) {
+        this.grid[this.homePosition.x][this.homePosition.y] = {
+          "name": "home"
+        };
+      }
+      console.log(this.grid);
+    }
 
-    function Player() {}
+    Player.prototype.draw = function(ctx) {
+      var image;
+      this.ctx = ctx;
+      if (this.isOpponent) {
+        this.shift = this.gridSize * this.blockSize;
+        this.homePosition.x = this.gridSize - 1;
+      }
+      image = new Image();
+      image.src = "img/house.png";
+      return image.onload = (function(_this) {
+        return function() {
+          return _this.ctx.drawImage(image, _this.shift + (_this.homePosition.x * _this.blockSize), _this.homePosition.y * _this.blockSize);
+        };
+      })(this);
+    };
 
-    lives = 10;
+    Player.prototype.isEmpty = function(obj) {
+      var key, _i, _len;
+      for (_i = 0, _len = obj.length; _i < _len; _i++) {
+        key = obj[_i];
+        if (obj.hasOwnProperty(key)) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    window.Player = Player;
 
     return Player;
 
