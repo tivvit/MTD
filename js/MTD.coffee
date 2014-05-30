@@ -2,8 +2,8 @@ requirejs.config({
   baseUrl: 'js'
 });
 
-requirejs(['game', 'player', 'home'],
-(game, player, home) ->
+requirejs(['game', 'player', 'home', 'towers/fire', 'towers/water', 'towers/nature', 'towers/wind'],
+(game, player, home, fire, water, nature, wind) ->
   new Player;
   g = new Game;
   g.clear();

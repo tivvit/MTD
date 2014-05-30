@@ -39,9 +39,16 @@
       })(this);
       this.canvas.ondrop = (function(_this) {
         return function(e) {
-          var data;
+          var type, x, xx, y, yy;
           e.preventDefault();
-          data = e.dataTransfer.getData("Name");
+          type = e.dataTransfer.getData("Name");
+          x = e.pageX - _this.canvas.offsetLeft;
+          y = e.pageY - _this.canvas.offsetTop;
+          if (x < gridSize * blockSize) {
+            xx = Math.round(x / blockSize);
+            yy = Math.round(y / blockSize);
+            _this.hostPlayer.addTower(type, xx, yy);
+          }
           return _this.clear();
         };
       })(this);
@@ -56,8 +63,8 @@
         tower.onmousedown = (function(_this) {
           return function(e) {
             return _this.draggedOffset = {
-              x: e.pageX,
-              y: e.pageY
+              x: e.layerX,
+              y: e.layerY
             };
           };
         })(this);

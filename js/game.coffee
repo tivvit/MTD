@@ -28,7 +28,22 @@ class Game
     @canvas.ondrop = (e) =>
       e.preventDefault();
 #      console.log "haha";
-      data = e.dataTransfer.getData("Name");
+      type = e.dataTransfer.getData("Name");
+#      var dx = pos[0] - img.offsetLeft;
+#    var dy = pos[1] - img.offsetTop;
+#      console.log e.pageX - @draggedOffset.x, e.pageY - @draggedOffset.y;
+#      console.log @canvas.offsetLeft;
+      x = e.pageX - @canvas.offsetLeft;# + @draggedOffset.x;
+      y = e.pageY - @canvas.offsetTop;# + @draggedOffset.y;
+
+#      console.log x, y;
+
+      if(x < gridSize*blockSize)
+        xx = Math.round(x/blockSize)
+        yy =  Math.round(y/blockSize)
+#        console.log xx, yy;
+        @hostPlayer.addTower(type, xx, yy);
+
       @clear();
 #      console.log data;
 
@@ -38,7 +53,8 @@ class Game
 #        console.log e.target.dataset;
 #        console.log "draged";
       tower.onmousedown = (e)=>
-        @draggedOffset = {x: e.pageX, y:e.pageY};
+#        console.log e.pageX, e.target.id, e.srcElement.offsetLeft, e.srcElement.clientX, e.srcElement.parentElement()..clientX
+        @draggedOffset = {x: e.layerX , y: e.layerY}; #e.pageX - e.target.offsetLeft
 #        console.log(@draggedOffset);
     #alert "hi game"
 

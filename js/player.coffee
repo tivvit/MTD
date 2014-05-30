@@ -18,6 +18,14 @@ class Player
     if Object.keys(@grid).length
       @grid[@homePosition.x][@homePosition.y] = new Home;
 
+  addTower: (@type, @x, @y) ->
+    switch @type
+      when "Fire" then @grid[x][y] = new Fire;
+      when "Water" then @grid[x][y] = new Water;
+      when "Nature" then @grid[x][y] = new Nature;
+      when "Wind" then @grid[x][y] = new Wind;
+
+
   draw: (@ctx) ->
 #    console.log @grid;
 #    @copy = @clone(@grid);

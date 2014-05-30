@@ -7,7 +7,7 @@
   border-radius: 8px;
 }
 #controls {
-  position: absolute;
+  position: fixed;
   top: 100px;
   right: 0;
   background-color: rgba(250, 250, 250, 0.8);
@@ -30,6 +30,6 @@
   background-color: rgba(100, 100, 100, 0.4);
 }
 #controls ul li img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 30px;
+  max-height: 30px;
 }

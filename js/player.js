@@ -31,6 +31,22 @@
       }
     }
 
+    Player.prototype.addTower = function(type, x, y) {
+      this.type = type;
+      this.x = x;
+      this.y = y;
+      switch (this.type) {
+        case "Fire":
+          return this.grid[x][y] = new Fire;
+        case "Water":
+          return this.grid[x][y] = new Water;
+        case "Nature":
+          return this.grid[x][y] = new Nature;
+        case "Wind":
+          return this.grid[x][y] = new Wind;
+      }
+    };
+
     Player.prototype.draw = function(ctx) {
       var half, x, xx, y, _i, _j, _k, _ref, _ref1, _ref2, _results;
       this.ctx = ctx;

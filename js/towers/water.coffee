@@ -1,11 +1,11 @@
-class Home
+class Water
   constructor: ->
-    @name = "Home";
+    @name = "Water";
 
   draw: (@ctx, @x, @y) ->
     image = new Image();
-    image.src = "img/house.png";
+    image.src = "img/droplet.svg";
     image.onload = =>
       @ctx.drawImage(image,@x, @y, 30, 30);
 
-  window.Home = Home;
+window.Water = Water;

@@ -1,11 +1,11 @@
-class Home
+class Fire
   constructor: ->
-    @name = "Home";
+    @name = "Fire";
 
   draw: (@ctx, @x, @y) ->
     image = new Image();
-    image.src = "img/house.png";
+    image.src = "img/fire.svg";
     image.onload = =>
       @ctx.drawImage(image,@x, @y, 30, 30);
 
-  window.Home = Home;
+window.Fire = Fire;
