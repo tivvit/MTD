@@ -31,30 +31,27 @@
     }
 
     Player.prototype.draw = function(ctx) {
-      var image;
+      var x, y, _i, _ref, _results;
       this.ctx = ctx;
       if (this.isOpponent) {
         this.shift = this.gridSize * this.blockSize;
-        this.homePosition.x = this.gridSize - 1;
       }
-      image = new Image();
-      image.src = "img/house.png";
-      return image.onload = (function(_this) {
-        return function() {
-          return _this.ctx.drawImage(image, _this.shift + (_this.homePosition.x * _this.blockSize), _this.homePosition.y * _this.blockSize);
-        };
-      })(this);
-    };
-
-    Player.prototype.isEmpty = function(obj) {
-      var key, _i, _len;
-      for (_i = 0, _len = obj.length; _i < _len; _i++) {
-        key = obj[_i];
-        if (obj.hasOwnProperty(key)) {
-          return false;
-        }
+      _results = [];
+      for (x = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
+        _results.push((function() {
+          var _j, _ref1, _results1;
+          _results1 = [];
+          for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
+            if (Object.keys(this.grid[x][y]).length) {
+              _results1.push(this.grid[x][y].draw(this.ctx, this.shift + x * this.blockSize, y * this.blockSize));
+            } else {
+              _results1.push(void 0);
+            }
+          }
+          return _results1;
+        }).call(this));
       }
-      return true;
+      return _results;
     };
 
     window.Player = Player;

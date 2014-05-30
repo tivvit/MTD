@@ -20,17 +20,16 @@ class Player
   draw: (@ctx) ->
     if @isOpponent
       @shift = @gridSize*@blockSize;
-      @homePosition.x = @gridSize-1; #otočení matice
+#      @homePosition.x = @gridSize-1; #otočení matice
 
-    image = new Image();
-    image.src = "img/house.png";
-    image.onload = =>
-      @ctx.drawImage(image,@shift+(@homePosition.x*@blockSize),@homePosition.y*@blockSize);
+    for x in [0...@gridSize]
+      for y in [0...@gridSize]
+        if Object.keys(@grid[x][y]).length
+          @grid[x][y].draw(@ctx,@shift+x*@blockSize,y*@blockSize)
 
-  isEmpty: (obj)->
-    for key in obj
-      if(obj.hasOwnProperty(key))
-        return false;
-    return true;
+#    image = new Image();
+#    image.src = "img/house.png";
+#    image.onload = =>
+#      @ctx.drawImage(image,@shift+(@homePosition.x*@blockSize),@homePosition.y*@blockSize);
 
   window.Player = Player;
