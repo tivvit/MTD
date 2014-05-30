@@ -5,15 +5,12 @@ class Player
     @isOpponent ?= false;
     @homePosition =  {x: 0, y: 9};
     @grid = {}
-    x = 0;
+
     for x in [0...@gridSize]
       inner = {};
-      y = 0;
       for y in [0...@gridSize]
         inner[y] = {};
-        y++;
       @grid[x] = inner;
-      x++
 
 #    check for emptyness
     if Object.keys(@grid).length

@@ -18,16 +18,12 @@
         y: 9
       };
       this.grid = {};
-      x = 0;
       for (x = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
         inner = {};
-        y = 0;
         for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
           inner[y] = {};
-          y++;
         }
         this.grid[x] = inner;
-        x++;
       }
       if (Object.keys(this.grid).length) {
         this.grid[this.homePosition.x][this.homePosition.y] = {
