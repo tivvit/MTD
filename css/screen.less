@@ -28,12 +28,20 @@
     margin: 0;
     padding: 0;
 
-    li a {
+    li {
       width: 30px;
       height: 30px;
-      display: inline-block;
-      margin-bottom: 4px;
-      background-color: deeppink;
+      margin-bottom: 8px;
+      text-align: center;
+
+      &:hover {
+        background-color: rgba(100, 100, 100, .4);
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
     }
   }
 }

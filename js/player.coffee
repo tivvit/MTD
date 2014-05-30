@@ -4,7 +4,8 @@ class Player
     @lives = 10;
     @isOpponent ?= false;
     @homePosition =  {x: 0, y: 9};
-    @grid = {}
+    @grid = {};
+    @money = 1000;
 
 #    grid initialization
     for x in [0...@gridSize]
