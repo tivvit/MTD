@@ -93,10 +93,9 @@
             for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
               if (Object.keys(this.hostPlayer.grid[x][y]).length) {
                 if (this.hostPlayer.grid[x][y].name !== "Home") {
-                  _results1.push(this.hostPlayer.grid[x][y].shoot(this.hostPlayer.soldiers));
-                } else {
-                  _results1.push(void 0);
+                  this.hostPlayer.grid[x][y].shoot(this.hostPlayer.soldiers, this.hostPlayer);
                 }
+                _results1.push(this.opponent.grid[x][y].shoot(this.hostPlayer.soldiers, this.opponent));
               } else {
                 _results1.push(void 0);
               }

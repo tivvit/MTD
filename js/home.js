@@ -3,18 +3,45 @@
   define([], function() {
     var Home;
     return Home = (function() {
-      function Home() {
+      function Home(x, y) {
+        this.x = x;
+        this.y = y;
         this.name = "Home";
       }
 
-      Home.prototype.draw = function(ctx, x, y) {
+      Home.prototype.draw = function(ctx, xx, yy) {
         var image;
         this.ctx = ctx;
-        this.x = x;
-        this.y = y;
         image = new Image();
         image.src = "img/house.png";
-        return this.ctx.drawImage(image, this.x, this.y, 30, 30);
+        return this.ctx.drawImage(image, xx, yy, 30, 30);
+      };
+
+      Home.prototype.shoot = function(enemies, owner) {
+        var enemy, key, pos, _ref, _results;
+        this.enemies = enemies;
+        this.owner = owner;
+        _ref = this.enemies;
+        _results = [];
+        for (key in _ref) {
+          enemy = _ref[key];
+          pos = enemy.position();
+          if (pos.x >= 20) {
+            pos.x -= 20;
+            if (pos.x === this.x && pos.y === this.y) {
+              this.enemies.splice(key, 1);
+              this.owner.lives--;
+            }
+            if (this.owner.lives <= 0) {
+              _results.push(console.log("end Game"));
+            } else {
+              _results.push(void 0);
+            }
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
       };
 
       return Home;

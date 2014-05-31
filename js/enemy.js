@@ -27,10 +27,12 @@
       };
 
       Enemy.prototype.position = function() {
-        var pos;
+        var pos, x, y;
         pos = {};
-        pos["x"] = Math.round(this.x / this.blockSize);
-        pos["y"] = Math.round(this.y / this.blockSize);
+        x = Math.round(this.x / this.blockSize);
+        y = Math.round(this.y / this.blockSize);
+        pos["x"] = x;
+        pos["y"] = y;
         return pos;
       };
 

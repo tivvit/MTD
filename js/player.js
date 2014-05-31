@@ -21,7 +21,7 @@
           y: 9
         };
         this.grid = {};
-        this.money = 1000;
+        this.money = 500;
         this.soldiers = [];
         for (x = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
           inner = {};
@@ -31,7 +31,7 @@
           this.grid[x] = inner;
         }
         if (Object.keys(this.grid).length) {
-          this.grid[this.homePosition.x][this.homePosition.y] = new Home;
+          this.grid[this.homePosition.x][this.homePosition.y] = new Home(this.homePosition.x, this.homePosition.y);
         }
       }
 

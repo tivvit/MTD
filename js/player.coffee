@@ -6,7 +6,7 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
       @isOpponent ?= false;
       @homePosition =  {x: 0, y: 9};
       @grid = {};
-      @money = 1000;
+      @money = 500;
       @soldiers = [];
 
   #    grid initialization
@@ -18,7 +18,7 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
 
   #    check for emptyness
       if Object.keys(@grid).length
-        @grid[@homePosition.x][@homePosition.y] = new Home;
+        @grid[@homePosition.x][@homePosition.y] = new Home(@homePosition.x, @homePosition.y);
 
     addTower: (@type, @x, @y) ->
       switch @type

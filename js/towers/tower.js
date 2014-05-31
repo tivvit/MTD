@@ -13,9 +13,10 @@
         return this.ctx.drawImage(image, xx, yy, 30, 30);
       };
 
-      Tower.prototype.shoot = function(enemies) {
+      Tower.prototype.shoot = function(enemies, owner) {
         var enemy, key, now, pos, _ref, _results;
         this.enemies = enemies;
+        this.owner = owner;
         now = new Date().getTime();
         if (now > this.lastShot + this.speed) {
           _ref = this.enemies;
@@ -28,6 +29,7 @@
               enemy.lives -= this.attack;
               if (enemy.lives <= 0) {
                 this.enemies.splice(key, 1);
+                this.owner.money += 10;
               }
               break;
             } else {

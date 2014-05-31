@@ -19,8 +19,14 @@ define ->
 
     position: ->
       pos = {};
-      pos["x"] = Math.round(@x/@blockSize);
-      pos["y"] = Math.round(@y/@blockSize);
+      x = Math.round(@x/@blockSize);
+      y = Math.round(@y/@blockSize);
+#      if x >= 20
+#        x -= 20;
+#      if y >= 20
+#        y -=20;
+      pos["x"] = x;
+      pos["y"] = y;
       return pos;
 
 #window.Enemy = Enemy;

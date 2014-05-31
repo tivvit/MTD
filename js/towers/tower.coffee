@@ -6,7 +6,7 @@ define [], () ->
       #    image.onload = =>
       @ctx.drawImage(image,xx, yy, 30, 30);
 
-    shoot: (@enemies) ->
+    shoot: (@enemies, @owner) ->
       now = new Date().getTime();
       if now > @lastShot+@speed
         for key,enemy of @enemies
@@ -16,6 +16,7 @@ define [], () ->
             enemy.lives -= @attack;
             if enemy.lives <= 0
               @enemies.splice(key, 1);
+              @owner.money += 10;
             break;
 
 #  return Tower;
