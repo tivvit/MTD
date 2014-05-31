@@ -13,8 +13,9 @@ define [], () ->
           pos = enemy.position();
           if pos.x >= @x-@range && pos.x <= @x+@range && pos.y >= @y-@range && pos.y <= @y+@range
             @lastShot = now;
-            @enemies.splice(key, 1);
-            console.log "bang";
+            enemy.lives -= @attack;
+            if enemy.lives <= 0
+              @enemies.splice(key, 1);
             break;
 
 #  return Tower;

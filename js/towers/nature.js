@@ -16,7 +16,8 @@
         this.price = 30;
         this.attack = 2;
         this.range = 4;
-        this.speed = 3;
+        this.speed = 2000;
+        this.lastShot = 0;
       }
 
       return Nature;

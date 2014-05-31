@@ -25,8 +25,10 @@
             pos = enemy.position();
             if (pos.x >= this.x - this.range && pos.x <= this.x + this.range && pos.y >= this.y - this.range && pos.y <= this.y + this.range) {
               this.lastShot = now;
-              this.enemies.splice(key, 1);
-              console.log("bang");
+              enemy.lives -= this.attack;
+              if (enemy.lives <= 0) {
+                this.enemies.splice(key, 1);
+              }
               break;
             } else {
               _results.push(void 0);
