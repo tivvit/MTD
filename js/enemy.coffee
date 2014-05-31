@@ -1,16 +1,26 @@
-class Enemy
-  constructor: (@x, @y, @blockSize, @gridSize)->
-    @name = "Enemy";
-    @lives = 5;
-    @speed = 3;
+define ->
+  class Enemy
+    constructor: (@x, @y, @blockSize, @gridSize)->
+      @name = "Enemy";
+      @lives = 5;
+      @speed = .08;
+      @lastAnimated;
 
-  draw: (@ctx) ->
-    image = new Image();
-    image.src = "img/alien.png";
-#    image.onload = =>
-    @ctx.drawImage(image,@x, @y, 30, 30);
+    draw: (@ctx) ->
+      now = new Date().getTime();
+      dt = now - (@lastAnimated || now);
 
-  position: ->
-    return {"x": Math.round(@x / @blockSize), "y": Math.round(@y / @blockSize)};
+      @lastAnimated = now;
+      @x += @speed * dt;
+      image = new Image();
+      image.src = "img/alien.png";
+  #    image.onload = =>
+      @ctx.drawImage(image,@x, @y, 30, 30);
 
-window.Enemy = Enemy;
+    position: ->
+      pos = {};
+      pos["x"] = Math.round(@x/@blockSize);
+      pos["y"] = Math.round(@y/@blockSize);
+      return pos;
+
+#window.Enemy = Enemy;

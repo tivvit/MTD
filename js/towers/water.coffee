@@ -1,15 +1,11 @@
-class Water
-  constructor: ->
-    @name = "Water";
-    @price = 30;
-    @attack = 2;
-    @range = 4;
-    @speed = 3;
+define ['towers/tower'], (Tower) ->
+  class Water extends Tower
+    constructor: (@x, @y)->
+      @name = "Water";
+      @img = "img/droplet.svg"
+      @price = 30;
+      @attack = 2;
+      @range = 4;
+      @speed = 3;
 
-  draw: (@ctx, @x, @y) ->
-    image = new Image();
-    image.src = "img/droplet.svg";
-#    image.onload = =>
-    @ctx.drawImage(image,@x, @y, 30, 30);
-
-window.Water = Water;
+#window.Water = Water;
