@@ -83,7 +83,6 @@ class Game
     document.querySelector("#coins").innerText = @hostPlayer.money;
 
     document.querySelector("#opponentLives").innerText = @opponent.lives;
-    document.querySelector("#opponentCoins").innerText = @opponent.money;
 
   showBlocked: ->
     @ctx.fillStyle = "rgba(250, 0, 0, .1)";

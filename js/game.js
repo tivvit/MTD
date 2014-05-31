@@ -104,8 +104,7 @@
       this.opponent.draw(this.ctx);
       document.querySelector("#lives").innerText = this.hostPlayer.lives;
       document.querySelector("#coins").innerText = this.hostPlayer.money;
-      document.querySelector("#opponentLives").innerText = this.opponent.lives;
-      return document.querySelector("#opponentCoins").innerText = this.opponent.money;
+      return document.querySelector("#opponentLives").innerText = this.opponent.lives;
     };
 
     Game.prototype.showBlocked = function() {
