@@ -5,10 +5,6 @@
     return Tower = (function() {
       function Tower() {}
 
-      Tower.prototype.construcor = function() {
-        return this.lastShot;
-      };
-
       Tower.prototype.draw = function(ctx, xx, yy) {
         var image;
         this.ctx = ctx;
@@ -18,20 +14,26 @@
       };
 
       Tower.prototype.shoot = function(enemies) {
-        var enemy, pos, _i, _len, _ref, _results;
+        var enemy, key, now, pos, _ref, _results;
         this.enemies = enemies;
-        _ref = this.enemies;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          enemy = _ref[_i];
-          pos = enemy.position();
-          if (pos.x >= this.x - this.range && pos.x <= this.x + this.range && pos.y >= this.y - this.range && pos.y <= this.y + this.range) {
-            _results.push(console.log(enemy));
-          } else {
-            _results.push(void 0);
+        now = new Date().getTime();
+        if (now > this.lastShot + this.speed) {
+          _ref = this.enemies;
+          _results = [];
+          for (key in _ref) {
+            enemy = _ref[key];
+            pos = enemy.position();
+            if (pos.x >= this.x - this.range && pos.x <= this.x + this.range && pos.y >= this.y - this.range && pos.y <= this.y + this.range) {
+              this.lastShot = now;
+              this.enemies.splice(key, 1);
+              console.log("bang");
+              break;
+            } else {
+              _results.push(void 0);
+            }
           }
+          return _results;
         }
-        return _results;
       };
 
       return Tower;

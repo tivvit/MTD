@@ -6,6 +6,7 @@ define ['towers/tower'], (Tower) ->
       @price = 30;
       @attack = 2;
       @range = 4;
-      @speed = 3;
+      @speed = 2000;
+      @lastShot = 0;
 
 #window.Wind = Wind;
