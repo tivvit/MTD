@@ -50,22 +50,31 @@
 #stats {
   background-color: @bg;
   margin-top: 6px;
-  padding: 4px 0;
+  padding: 0;
   border-radius: @radius;
   font-size: 16px;
   border: 1px solid rgba(0, 0, 0, .1);
 
-  > div {
-    &:first-child {
-      border-bottom: 1px solid rgba(0, 0, 0, .1);
-    }
+  #players {
+    padding: 4px 0;
+    border-right: 1px solid rgba(0, 0, 0, .1);
 
     > div {
-      padding: 0 0 0 4px;
-
       &:first-child {
-        font-weight: bold;
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+      }
+
+      > div {
+        padding: 0 0 0 4px;
+
+        &:first-child {
+          font-weight: bold;
+        }
       }
     }
+  }
+
+  #waves {
+    padding: 4px 6px;
   }
 }

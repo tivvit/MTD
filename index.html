@@ -11,14 +11,20 @@
             <h1>Multiplayer Tower defence</h1>
         </div>
         <div class="col-xs-6" id="stats">
-            <div class="col-xs-12">
-                <div class="col-xs-4">You:</div>
-                <div class="col-xs-4">lives: <span id="lives"></span></div>
-                <div class="col-xs-4">coins: <span id="coins"></span></div>
+            <div class="col-xs-9" id="players">
+                <div class="col-xs-12">
+                    <div class="col-xs-4">You:</div>
+                    <div class="col-xs-4">lives: <span id="lives"></span></div>
+                    <div class="col-xs-4">coins: <span id="coins"></span></div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-xs-4">Opponent:</div>
+                    <div class="col-xs-4">lives: <span id="opponentLives"></span></div>
+                </div>
             </div>
-            <div class="col-xs-12">
-                <div class="col-xs-4">Opponent:</div>
-                <div class="col-xs-4">lives: <span id="opponentLives"></span></div>
+            <div class="col-xs-3" id="waves">
+                <div>Wave: <span id="wave"></span></div>
+                <div>Next: <span id="next"></span></div>
             </div>
         </div>
         <canvas width="1200" height="600" id="game"></canvas>

@@ -10,6 +10,8 @@ class Game
     @hostPlayer = new Player(blockSize, gridSize);
     @opponent = new Player(blockSize, gridSize, true);
     @draggedOffset = {};
+    @wave = 0;
+    @nextWave = 30;
 
     @canvas = document.querySelector('#game');
 
@@ -57,7 +59,18 @@ class Game
 #        console.log e.pageX, e.target.id, e.srcElement.offsetLeft, e.srcElement.clientX, e.srcElement.parentElement()..clientX
         @draggedOffset = {x: e.layerX , y: e.layerY}; #e.pageX - e.target.offsetLeft
 #        console.log(@draggedOffset);
+
+    setInterval @waveTick, 1000;
     #alert "hi game"
+
+  waveTick: =>
+    @nextWave -= 1;
+    document.querySelector("#next").innerText = @nextWave;
+
+    if @nextWave == 0
+      @nextWave = 10;
+      @wave++;
+      document.querySelector("#wave").innerText = @wave;
 
   drawGrid: ->
     @ctx.strokeStyle = "rgba(200,200,200, .2)";
@@ -83,6 +96,9 @@ class Game
     document.querySelector("#coins").innerText = @hostPlayer.money;
 
     document.querySelector("#opponentLives").innerText = @opponent.lives;
+
+    document.querySelector("#wave").innerText = @wave;
+    document.querySelector("#next").innerText = @nextWave;
 
   showBlocked: ->
     @ctx.fillStyle = "rgba(250, 0, 0, .1)";

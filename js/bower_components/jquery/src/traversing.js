@@ -141,7 +141,7 @@ jQuery.each({
 	parentsUntil: function( elem, i, until ) {
 		return jQuery.dir( elem, "parentNode", until );
 	},
-	next: function( elem ) {
+	nextWave: function( elem ) {
 		return sibling( elem, "nextSibling" );
 	},
 	prev: function( elem ) {
