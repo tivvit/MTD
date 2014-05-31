@@ -11,8 +11,9 @@ class Game
     @opponent = new Player(blockSize, gridSize, true);
     @draggedOffset = {};
     @wave = 0;
-    @nextWave = 30;
+    @nextWave = 1;
     @waveTime = 10;
+    @blocked = false;
 
     @canvas = document.querySelector('#game');
 
@@ -21,10 +22,11 @@ class Game
 #      console.log "oo";
 
     @canvas.ondragenter = (e) =>
-      @showBlocked();
+      @blocked = true;
 
     @canvas.ondragleave = (e) =>
       e.preventDefault();
+      @blocked = false;
       @clear();
     #      console.log "oo";
 
@@ -48,6 +50,7 @@ class Game
         @hostPlayer.addTower(type, xx, yy);
 #        @opponent.addTower(type, xx, yy);
 
+      @blocked = false;
       @clear();
 #      console.log data;
 
@@ -62,6 +65,27 @@ class Game
 #        console.log(@draggedOffset);
 
     setInterval @waveTick, 1000;
+
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+#    @step();
+
+#  step: =>
+#
+##    @clear();
+##    ctx.clearRect(0, 0, @canvas.width, @canvas.height);
+#
+#    requestAnimationFrame @step;
+#    console.log @hostPlayer.soldiers.length;
+#
+#    for enemy in @hostPlayer.soldiers
+##      @ctx.clearRect(enemy.x, enemy.y, 30, 30);
+#      enemy.draw @ctx;
+#      enemy.x++;
+
+
+
     #alert "hi game"
 
   waveTick: =>
@@ -87,11 +111,13 @@ class Game
     @ctx.fillStyle = "black";
     @ctx.fillRect(size.x/2, 0, 1, size.y);
 
-  clear: ->
+  clear: =>
+    @ctx.clearRect(0, 0, @canvas.width, @canvas.height);
+#    console.log "clearing";
     @ctx.fillStyle = "rgb(230, 230, 230)";
     @ctx.fillRect(0, 0, size.x, size.y);
-    this.drawGrid();
-    this.drawSeparator();
+    @drawGrid();
+    @drawSeparator();
     @hostPlayer.draw(@ctx);
     @opponent.draw(@ctx);
 
@@ -103,9 +129,31 @@ class Game
     document.querySelector("#wave").innerText = @wave;
     document.querySelector("#next").innerText = @nextWave;
 
+    if @blocked
+      @showBlocked();
+
+    for enemy in @hostPlayer.soldiers
+#      @ctx.clearRect(enemy.x, enemy.y, 30, 30);
+      enemy.draw @ctx;
+      enemy.x++;
+
+    requestAnimationFrame @clear;
+
   showBlocked: ->
     @ctx.fillStyle = "rgba(250, 0, 0, .1)";
     @ctx.fillRect(gridSize*blockSize, 0, size.x, size.y);
 
+  preload: ->
+    imageList = [
+      "img/alien.png",
+      "img/droplet.svg",
+      "img/fire.svg",
+      "img/house.png",
+      "img/leaf.svg",
+      "img/twister.svg"
+    ];
+    for img in imageList
+      imageObject = new Image();
+      imageObject.src = img;
 
   window.Game = Game;

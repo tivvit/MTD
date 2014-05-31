@@ -18,11 +18,7 @@
       this.y = y;
       image = new Image();
       image.src = "img/fire.svg";
-      return image.onload = (function(_this) {
-        return function() {
-          return _this.ctx.drawImage(image, _this.x, _this.y, 30, 30);
-        };
-      })(this);
+      return this.ctx.drawImage(image, this.x, this.y, 30, 30);
     };
 
     return Fire;

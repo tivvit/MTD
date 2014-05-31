@@ -16,6 +16,7 @@
     blockSize = 30;
 
     function Game() {
+      this.clear = __bind(this.clear, this);
       this.waveTick = __bind(this.waveTick, this);
       var tower, _i, _len, _ref;
       this.ctx = document.querySelector('#game').getContext('2d');
@@ -23,8 +24,9 @@
       this.opponent = new Player(blockSize, gridSize, true);
       this.draggedOffset = {};
       this.wave = 0;
-      this.nextWave = 30;
+      this.nextWave = 1;
       this.waveTime = 10;
+      this.blocked = false;
       this.canvas = document.querySelector('#game');
       this.canvas.ondragover = (function(_this) {
         return function(e) {
@@ -33,12 +35,13 @@
       })(this);
       this.canvas.ondragenter = (function(_this) {
         return function(e) {
-          return _this.showBlocked();
+          return _this.blocked = true;
         };
       })(this);
       this.canvas.ondragleave = (function(_this) {
         return function(e) {
           e.preventDefault();
+          _this.blocked = false;
           return _this.clear();
         };
       })(this);
@@ -54,6 +57,7 @@
             yy = Math.round(y / blockSize);
             _this.hostPlayer.addTower(type, xx, yy);
           }
+          _this.blocked = false;
           return _this.clear();
         };
       })(this);
@@ -75,6 +79,7 @@
         })(this);
       }
       setInterval(this.waveTick, 1000);
+      window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     }
 
     Game.prototype.waveTick = function() {
@@ -114,6 +119,8 @@
     };
 
     Game.prototype.clear = function() {
+      var enemy, _i, _len, _ref;
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.ctx.fillStyle = "rgb(230, 230, 230)";
       this.ctx.fillRect(0, 0, size.x, size.y);
       this.drawGrid();
@@ -124,12 +131,34 @@
       document.querySelector("#coins").innerText = this.hostPlayer.money;
       document.querySelector("#opponentLives").innerText = this.opponent.lives;
       document.querySelector("#wave").innerText = this.wave;
-      return document.querySelector("#next").innerText = this.nextWave;
+      document.querySelector("#next").innerText = this.nextWave;
+      if (this.blocked) {
+        this.showBlocked();
+      }
+      _ref = this.hostPlayer.soldiers;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        enemy = _ref[_i];
+        enemy.draw(this.ctx);
+        enemy.x++;
+      }
+      return requestAnimationFrame(this.clear);
     };
 
     Game.prototype.showBlocked = function() {
       this.ctx.fillStyle = "rgba(250, 0, 0, .1)";
       return this.ctx.fillRect(gridSize * blockSize, 0, size.x, size.y);
+    };
+
+    Game.prototype.preload = function() {
+      var imageList, imageObject, img, _i, _len, _results;
+      imageList = ["img/alien.png", "img/droplet.svg", "img/fire.svg", "img/house.png", "img/leaf.svg", "img/twister.svg"];
+      _results = [];
+      for (_i = 0, _len = imageList.length; _i < _len; _i++) {
+        img = imageList[_i];
+        imageObject = new Image();
+        _results.push(imageObject.src = img);
+      }
+      return _results;
     };
 
     window.Game = Game;

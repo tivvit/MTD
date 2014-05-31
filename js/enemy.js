@@ -8,24 +8,17 @@
       this.y = y;
       this.blockSize = blockSize;
       this.gridSize = gridSize;
+      this.name = "Enemy";
+      this.lives = 5;
+      this.speed = 3;
     }
-
-    Enemy.name = "Enemy";
-
-    Enemy.lives = 5;
-
-    Enemy.speed = 3;
 
     Enemy.prototype.draw = function(ctx) {
       var image;
       this.ctx = ctx;
       image = new Image();
       image.src = "img/alien.png";
-      return image.onload = (function(_this) {
-        return function() {
-          return _this.ctx.drawImage(image, _this.x, _this.y, 30, 30);
-        };
-      })(this);
+      return this.ctx.drawImage(image, this.x, this.y, 30, 30);
     };
 
     Enemy.prototype.position = function() {
