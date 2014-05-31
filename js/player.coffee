@@ -1,4 +1,4 @@
-define ['home', 'enemy'], (Home, Enemy) ->
+define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers/wind'], (Home, Enemy, Fire, Nature, Water, Wind) ->
   class Player
     constructor: (@blockSize, @gridSize, @isOpponent) ->
       @shift = 0;

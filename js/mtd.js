@@ -4,7 +4,7 @@
     baseUrl: 'js'
   });
 
-  define(['game', 'player', 'home', 'towers/fire', 'towers/water', 'towers/nature', 'towers/wind', 'enemy'], function(Game, player, home, fire, water, nature, wind) {
+  define(['game'], function(Game) {
     return new Game().clear();
   });
 

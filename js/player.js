@@ -2,7 +2,7 @@
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  define(['home', 'enemy'], function(Home, Enemy) {
+  define(['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers/wind'], function(Home, Enemy, Fire, Nature, Water, Wind) {
     var Player;
     return Player = (function() {
       function Player(blockSize, gridSize, isOpponent) {
