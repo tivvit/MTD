@@ -11,8 +11,16 @@
             <h1>Multiplayer Tower defence</h1>
         </div>
         <div class="col-xs-6" id="stats">
-            <div class="col-xs-3">lives <span id="lives"></span></div>
-            <div class="col-xs-3">coins <span id="coins"></span></div>
+            <div class="col-xs-12">
+                <div class="col-xs-2">You:</div>
+                <div class="col-xs-3">lives <span id="lives"></span></div>
+                <div class="col-xs-3">coins <span id="coins"></span></div>
+            </div>
+            <div class="col-xs-12">
+                <div class="col-xs-2">Opponent:</div>
+                <div class="col-xs-3">lives <span id="opponentLives"></span></div>
+                <div class="col-xs-3">coins <span id="opponentCoins"></span></div>
+            </div>
         </div>
         <canvas width="1200" height="600" id="game"></canvas>
     </div>
@@ -24,7 +32,6 @@
             <li><img src="img/twister.svg" data-name="Wind" draggable="true" class="tower"></li>
         </ul>
     </div>
-    <script src="js/game.js"></script>
     <script data-main="js/mtd.js" src="js/bower_components/requirejs/require.js"></script>
 </body>
 </html>

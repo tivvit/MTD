@@ -43,6 +43,7 @@ class Game
         yy =  Math.round(y/blockSize)
 #        console.log xx, yy;
         @hostPlayer.addTower(type, xx, yy);
+#        @opponent.addTower(type, xx, yy);
 
       @clear();
 #      console.log data;
@@ -80,6 +81,9 @@ class Game
 
     document.querySelector("#lives").innerText = @hostPlayer.lives;
     document.querySelector("#coins").innerText = @hostPlayer.money;
+
+    document.querySelector("#opponentLives").innerText = @opponent.lives;
+    document.querySelector("#opponentCoins").innerText = @opponent.money;
 
   showBlocked: ->
     @ctx.fillStyle = "rgba(250, 0, 0, .1)";
