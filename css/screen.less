@@ -2,6 +2,7 @@
 @import "../js/bower_components/bootstrap/dist/css/bootstrap-theme.min.css";
 
 @radius: 8px;
+@bg: rgba(250, 250, 250, .8);
 
 .left-radius() {
   border-top-left-radius: @radius;
@@ -18,7 +19,7 @@
   position: fixed;
   top: 100px;
   right: 0;
-  background-color: rgba(250, 250, 250, .8);
+  background-color: @bg;
   border-bottom-left-radius: @radius;
   padding: 10px;
   .left-radius;
@@ -41,6 +42,29 @@
       img {
         max-width: 30px;
         max-height: 30px;
+      }
+    }
+  }
+}
+
+#stats {
+  background-color: @bg;
+  margin-top: 6px;
+  padding: 4px 0;
+  border-radius: @radius;
+  font-size: 16px;
+  border: 1px solid rgba(0, 0, 0, .1);
+
+  > div {
+    &:first-child {
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    > div {
+      padding: 0 0 0 4px;
+
+      &:first-child {
+        font-weight: bold;
       }
     }
   }
