@@ -12,6 +12,7 @@ class Game
     @draggedOffset = {};
     @wave = 0;
     @nextWave = 30;
+    @waveTime = 10;
 
     @canvas = document.querySelector('#game');
 
@@ -68,9 +69,11 @@ class Game
     document.querySelector("#next").innerText = @nextWave;
 
     if @nextWave == 0
-      @nextWave = 10;
+      @nextWave = @waveTime;
       @wave++;
       document.querySelector("#wave").innerText = @wave;
+      @hostPlayer.sendArmy(@wave, Math.round(@waveTime/2));
+      @opponent.sendArmy(@wave, Math.round(@waveTime/2));
 
   drawGrid: ->
     @ctx.strokeStyle = "rgba(200,200,200, .2)";

@@ -6,6 +6,7 @@ class Player
     @homePosition =  {x: 0, y: 9};
     @grid = {};
     @money = 1000;
+    @soldiers = [];
 
 #    grid initialization
     for x in [0...@gridSize]
@@ -30,6 +31,17 @@ class Player
       @money -= tower.price;
       @grid[x][y] = tower;
 
+  sendArmy: (@wave, @time) ->
+    count = 5 + Math.round(@wave/5);
+    sent = 0;
+    diff = @time/count;
+    while count > 0
+      setTimeout(@addSoldier, sent);
+      sent += diff;
+      count--;
+
+  addSoldier: =>
+    @soldiers.push(new Enemy(@blockSize*@homePosition.x, @blockSize*@homePosition.y, @blockSize, @gridSize));
 
   draw: (@ctx) ->
 #    console.log @grid;

@@ -4,7 +4,7 @@
     baseUrl: 'js'
   });
 
-  requirejs(['game', 'player', 'home', 'towers/fire', 'towers/water', 'towers/nature', 'towers/wind'], function(game, player, home, fire, water, nature, wind) {
+  requirejs(['game', 'player', 'home', 'towers/fire', 'towers/water', 'towers/nature', 'towers/wind', 'enemy'], function(game, player, home, fire, water, nature, wind) {
     var g;
     new Player;
     g = new Game;

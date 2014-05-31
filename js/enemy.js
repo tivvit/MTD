@@ -3,11 +3,43 @@
   var Enemy;
 
   Enemy = (function() {
-    function Enemy() {}
+    function Enemy(x, y, blockSize, gridSize) {
+      this.x = x;
+      this.y = y;
+      this.blockSize = blockSize;
+      this.gridSize = gridSize;
+    }
+
+    Enemy.name = "Enemy";
+
+    Enemy.lives = 5;
+
+    Enemy.speed = 3;
+
+    Enemy.prototype.draw = function(ctx) {
+      var image;
+      this.ctx = ctx;
+      image = new Image();
+      image.src = "img/alien.png";
+      return image.onload = (function(_this) {
+        return function() {
+          return _this.ctx.drawImage(image, _this.x, _this.y, 30, 30);
+        };
+      })(this);
+    };
+
+    Enemy.prototype.position = function() {
+      return {
+        "x": Math.round(this.x / this.blockSize),
+        "y": Math.round(this.y / this.blockSize)
+      };
+    };
 
     return Enemy;
 
   })();
+
+  window.Enemy = Enemy;
 
 }).call(this);
 

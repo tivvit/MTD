@@ -24,6 +24,7 @@
       this.draggedOffset = {};
       this.wave = 0;
       this.nextWave = 30;
+      this.waveTime = 10;
       this.canvas = document.querySelector('#game');
       this.canvas.ondragover = (function(_this) {
         return function(e) {
@@ -80,9 +81,11 @@
       this.nextWave -= 1;
       document.querySelector("#next").innerText = this.nextWave;
       if (this.nextWave === 0) {
-        this.nextWave = 10;
+        this.nextWave = this.waveTime;
         this.wave++;
-        return document.querySelector("#wave").innerText = this.wave;
+        document.querySelector("#wave").innerText = this.wave;
+        this.hostPlayer.sendArmy(this.wave, Math.round(this.waveTime / 2));
+        return this.opponent.sendArmy(this.wave, Math.round(this.waveTime / 2));
       }
     };
 
