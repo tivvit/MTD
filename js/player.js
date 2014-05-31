@@ -37,13 +37,20 @@
       this.y = y;
       switch (this.type) {
         case "Fire":
-          return this.grid[x][y] = new Fire;
+          return this.towerfactory(new Fire, x, y);
         case "Water":
-          return this.grid[x][y] = new Water;
+          return this.towerfactory(new Water, x, y);
         case "Nature":
-          return this.grid[x][y] = new Nature;
+          return this.towerfactory(new Nature, x, y);
         case "Wind":
-          return this.grid[x][y] = new Wind;
+          return this.towerfactory(new Wind, x, y);
+      }
+    };
+
+    Player.prototype.towerfactory = function(tower, x, y) {
+      if (this.money >= tower.price) {
+        this.money -= tower.price;
+        return this.grid[x][y] = tower;
       }
     };
 

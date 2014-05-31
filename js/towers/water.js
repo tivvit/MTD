@@ -5,6 +5,10 @@
   Water = (function() {
     function Water() {
       this.name = "Water";
+      this.price = 30;
+      this.attack = 2;
+      this.range = 4;
+      this.speed = 3;
     }
 
     Water.prototype.draw = function(ctx, x, y) {

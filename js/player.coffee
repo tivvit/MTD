@@ -20,10 +20,15 @@ class Player
 
   addTower: (@type, @x, @y) ->
     switch @type
-      when "Fire" then @grid[x][y] = new Fire;
-      when "Water" then @grid[x][y] = new Water;
-      when "Nature" then @grid[x][y] = new Nature;
-      when "Wind" then @grid[x][y] = new Wind;
+      when "Fire" then @towerfactory(new Fire, x, y);
+      when "Water" then @towerfactory(new Water, x, y);
+      when "Nature" then @towerfactory(new Nature, x, y);
+      when "Wind" then @towerfactory(new Wind, x, y);
+
+  towerfactory: (tower, x, y) ->
+    if(@money >= tower.price)
+      @money -= tower.price;
+      @grid[x][y] = tower;
 
 
   draw: (@ctx) ->

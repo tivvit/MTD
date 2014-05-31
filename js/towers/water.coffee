@@ -1,6 +1,10 @@
 class Water
   constructor: ->
     @name = "Water";
+    @price = 30;
+    @attack = 2;
+    @range = 4;
+    @speed = 3;
 
   draw: (@ctx, @x, @y) ->
     image = new Image();
