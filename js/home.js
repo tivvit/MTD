@@ -12,7 +12,7 @@
       Home.prototype.draw = function(ctx, xx, yy) {
         var image;
         image = new Image();
-        image.src = "img/house.png";
+        image.src = "img/home.svg";
         return ctx.drawImage(image, xx, yy, 30, 30);
       };
 

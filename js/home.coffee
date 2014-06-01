@@ -5,7 +5,7 @@ define [], () ->
 
     draw: (ctx, xx, yy) ->
       image = new Image();
-      image.src = "img/house.png";
+      image.src = "img/home.svg";
   #    @ctx.fillRect(@x, @y, 30, 30);
   #    image.onload = =>
       ctx.drawImage(image,xx, yy, 30, 30);
