@@ -1,9 +1,9 @@
 define ->
   class Enemy
-    constructor: (@x, @y, @blockSize, @gridSize)->
+    constructor: (@x, @y, @blockSize, @gridSize, @wave)->
       @name = "Enemy";
-      @lives = 5;
-      @speed = .08;
+      @lives = 5 + (@wave * .1);
+      @speed = .08 + (@wave * .001);
       @lastAnimated;
 
     draw: (@ctx) ->

@@ -3,14 +3,15 @@
   define(function() {
     var Enemy;
     return Enemy = (function() {
-      function Enemy(x, y, blockSize, gridSize) {
+      function Enemy(x, y, blockSize, gridSize, wave) {
         this.x = x;
         this.y = y;
         this.blockSize = blockSize;
         this.gridSize = gridSize;
+        this.wave = wave;
         this.name = "Enemy";
-        this.lives = 5;
-        this.speed = .08;
+        this.lives = 5 + (this.wave * .1);
+        this.speed = .08 + (this.wave * .001);
         this.lastAnimated;
       }
 

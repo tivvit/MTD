@@ -76,7 +76,7 @@
       };
 
       Player.prototype.addSoldier = function() {
-        return this.soldiers.push(new Enemy(this.blockSize * this.homePosition.x, this.blockSize * this.homePosition.y, this.blockSize, this.gridSize));
+        return this.soldiers.push(new Enemy(this.blockSize * this.homePosition.x, this.blockSize * this.homePosition.y, this.blockSize, this.gridSize, this.wave));
       };
 
       Player.prototype.draw = function(ctx) {

@@ -43,7 +43,7 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
         count--;
 
     addSoldier: =>
-      @soldiers.push(new Enemy(@blockSize*@homePosition.x, @blockSize*@homePosition.y, @blockSize, @gridSize));
+      @soldiers.push(new Enemy(@blockSize*@homePosition.x, @blockSize*@homePosition.y, @blockSize, @gridSize, @wave));
 
     draw: (@ctx) ->
   #    console.log @grid;
