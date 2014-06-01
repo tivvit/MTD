@@ -2,7 +2,7 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
   class Player
     constructor: (@blockSize, @gridSize, @isOpponent) ->
       @shift = 0;
-      @lives = 10;
+      @lives = 1000;
       @isOpponent ?= false;
       @homePosition =  {x: 0, y: 9};
       @grid = {};
@@ -22,6 +22,8 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
           @grid[@homePosition.x][@homePosition.y] = new Home(@homePosition.x, @homePosition.y);
         else
           pos = @findMirrored(@homePosition.x, @homePosition.y)
+          @homePosition.x = pos.x;
+          @homePosition.y = pos.y;
           @grid[pos.x][pos.y] = new Home(pos.x, pos.y);
 
     findMirrored: (x, y) ->
@@ -35,7 +37,7 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
 #        return pos;
 #      else if x < half
 #        xx = (half - x) * 2;
-      xx = 19 - x;
+      xx = @gridSize - 1 - x;
       pos = {};
       pos["x"] = xx;
       pos["y"] = y;
@@ -47,6 +49,19 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
         when "Water" then @towerfactory(new Water(x, y), x, y);
         when "Nature" then @towerfactory(new Nature(x, y), x, y);
         when "Wind" then @towerfactory(new Wind(x, y), x, y);
+
+    generateMatrix: ->
+      mat = [0...@gridSize];
+      for x in mat
+        mat[x] = [0...@gridSize];
+      for x in [0...@gridSize]
+        for y in [0...@gridSize]
+          if Object.keys(@copy[x][y]).length
+            mat[x][y] = 1;
+          else
+            mat[x][y] = 0;
+
+      return mat;
 
     towerfactory: (tower, x, y) ->
       if(@money >= tower.price)
@@ -64,7 +79,7 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
         count--;
 
     addSoldier: =>
-      @soldiers.push(new Enemy(@blockSize*@homePosition.x, @blockSize*@homePosition.y, @blockSize, @gridSize, @wave));
+      @soldiers.push(new Enemy(@blockSize*@homePosition.x, @blockSize*@homePosition.y, @blockSize, @gridSize, @wave, @));
 
     draw: (@ctx) ->
   #    console.log @grid;

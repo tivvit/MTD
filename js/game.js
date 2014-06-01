@@ -16,6 +16,7 @@
         this.clear = __bind(this.clear, this);
         this.waveTick = __bind(this.waveTick, this);
         this.shoot = __bind(this.shoot, this);
+        this.findPath = __bind(this.findPath, this);
         var key, parent, tower, type, _i, _len, _ref;
         this.gridSize = 20;
         this.blockSize = 30;
@@ -93,8 +94,38 @@
         }
         this.waveLoop = setInterval(this.waveTick, 1000);
         this.shootLoop = setInterval(this.shoot, 100);
+        this.findPathLoop = setInterval(this.findPath, 2000);
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       }
+
+      Game.prototype.findPath = function() {
+        var enemy, mat, _i, _len, _ref, _results;
+        mat = this.createGameMatrix();
+        _ref = this.hostPlayer.soldiers;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          enemy = _ref[_i];
+          _results.push(enemy.findPath(mat, this.hostPlayer, this.opponent));
+        }
+        return _results;
+      };
+
+      Game.prototype.createGameMatrix = function() {
+        var mat, mat1, v, val, x, y, ypos, _ref;
+        mat = this.hostPlayer.generateMatrix();
+        mat[this.hostPlayer.homePosition.x][this.hostPlayer.homePosition.y] = 0;
+        mat1 = this.opponent.generateMatrix();
+        for (x in mat1) {
+          v = mat1[x];
+          _ref = mat1[x];
+          for (y in _ref) {
+            val = _ref[y];
+            ypos = parseInt(y) + this.gridSize;
+            mat[x][ypos] = val;
+          }
+        }
+        return mat;
+      };
 
       Game.prototype.shoot = function() {
         var x, y, _i, _j, _ref, _ref1;
@@ -113,13 +144,14 @@
         if (this.hostPlayer.lives <= 0 || this.opponent.lives <= 0) {
           clearInterval(this.waveLoop);
           clearInterval(this.shootLoop);
+          clearInterval(this.findPathLoop);
           this.end = true;
         }
         if (this.hostPlayer.lives <= 0) {
-          alert("You Lose");
+          0;
         }
         if (this.opponent.lives <= 0) {
-          return alert("You Won");
+          return 0;
         }
       };
 

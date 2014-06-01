@@ -12,7 +12,7 @@
         this.isOpponent = isOpponent;
         this.addSoldier = __bind(this.addSoldier, this);
         this.shift = 0;
-        this.lives = 10;
+        this.lives = 1000;
         if (this.isOpponent == null) {
           this.isOpponent = false;
         }
@@ -35,6 +35,8 @@
             this.grid[this.homePosition.x][this.homePosition.y] = new Home(this.homePosition.x, this.homePosition.y);
           } else {
             pos = this.findMirrored(this.homePosition.x, this.homePosition.y);
+            this.homePosition.x = pos.x;
+            this.homePosition.y = pos.y;
             this.grid[pos.x][pos.y] = new Home(pos.x, pos.y);
           }
         }
@@ -43,7 +45,7 @@
       Player.prototype.findMirrored = function(x, y) {
         var half, pos, xx;
         half = this.gridSize / 2;
-        xx = 19 - x;
+        xx = this.gridSize - 1 - x;
         pos = {};
         pos["x"] = xx;
         pos["y"] = y;
@@ -64,6 +66,33 @@
           case "Wind":
             return this.towerfactory(new Wind(x, y), x, y);
         }
+      };
+
+      Player.prototype.generateMatrix = function() {
+        var mat, x, y, _i, _j, _k, _l, _len, _m, _ref, _ref1, _ref2, _ref3, _results, _results1;
+        mat = (function() {
+          _results = [];
+          for (var _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; 0 <= _ref ? _i++ : _i--){ _results.push(_i); }
+          return _results;
+        }).apply(this);
+        for (_j = 0, _len = mat.length; _j < _len; _j++) {
+          x = mat[_j];
+          mat[x] = (function() {
+            _results1 = [];
+            for (var _k = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _k < _ref1 : _k > _ref1; 0 <= _ref1 ? _k++ : _k--){ _results1.push(_k); }
+            return _results1;
+          }).apply(this);
+        }
+        for (x = _l = 0, _ref2 = this.gridSize; 0 <= _ref2 ? _l < _ref2 : _l > _ref2; x = 0 <= _ref2 ? ++_l : --_l) {
+          for (y = _m = 0, _ref3 = this.gridSize; 0 <= _ref3 ? _m < _ref3 : _m > _ref3; y = 0 <= _ref3 ? ++_m : --_m) {
+            if (Object.keys(this.copy[x][y]).length) {
+              mat[x][y] = 1;
+            } else {
+              mat[x][y] = 0;
+            }
+          }
+        }
+        return mat;
       };
 
       Player.prototype.towerfactory = function(tower, x, y) {
@@ -91,7 +120,7 @@
       };
 
       Player.prototype.addSoldier = function() {
-        return this.soldiers.push(new Enemy(this.blockSize * this.homePosition.x, this.blockSize * this.homePosition.y, this.blockSize, this.gridSize, this.wave));
+        return this.soldiers.push(new Enemy(this.blockSize * this.homePosition.x, this.blockSize * this.homePosition.y, this.blockSize, this.gridSize, this.wave, this));
       };
 
       Player.prototype.draw = function(ctx) {

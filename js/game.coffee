@@ -78,6 +78,7 @@ define ['player', 'towers/config'], (Player, config) ->
 
       @waveLoop = setInterval @waveTick, 1000;
       @shootLoop = setInterval @shoot, 100;
+      @findPathLoop = setInterval @findPath, 2000;
 
       window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
       window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -101,6 +102,25 @@ define ['player', 'towers/config'], (Player, config) ->
 
       #alert "hi game"
 
+    findPath: =>
+      mat = @createGameMatrix();
+
+      for enemy in @hostPlayer.soldiers
+        enemy.findPath(mat, @hostPlayer, @opponent);
+
+    createGameMatrix: ->
+      mat = @hostPlayer.generateMatrix();
+      mat[@hostPlayer.homePosition.x][@hostPlayer.homePosition.y] = 0;
+      mat1 = @opponent.generateMatrix();
+
+      for x, v of mat1
+        for y, val of mat1[x]
+          ypos = parseInt(y)+@gridSize;
+          mat[x][ypos] = val;
+
+      return mat;
+
+#
     shoot: =>
       for x in [0...@gridSize]
         for y in [0...@gridSize]
@@ -113,12 +133,15 @@ define ['player', 'towers/config'], (Player, config) ->
       if @hostPlayer.lives <= 0 || @opponent.lives <= 0
         clearInterval @waveLoop;
         clearInterval @shootLoop;
+        clearInterval @findPathLoop
         @end = true;
 
       if @hostPlayer.lives <= 0
-        alert "You Lose";
+#        alert "You Lose";
+        0;
       if @opponent.lives <= 0
-        alert "You Won";
+#        alert "You Won";
+        0;
 
     waveTick: =>
       @nextWave -= 1;
