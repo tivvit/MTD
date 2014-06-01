@@ -6,6 +6,7 @@
     "license": "MIT",
     "dependencies": {
         "requirejs": "latest",
-        "bootstrap": "latest"
+        "bootstrap": "latest",
+        "easystar.js": "latest"
     }
 }
