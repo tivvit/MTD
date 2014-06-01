@@ -80,31 +80,18 @@
       };
 
       Player.prototype.draw = function(ctx) {
-        var half, x, xx, y, _i, _j, _k, _ref, _ref1, _ref2, _results;
+        var x, y, _i, _ref, _results;
         this.ctx = ctx;
         this.copy = this.grid;
         if (this.isOpponent) {
           this.shift = this.gridSize * this.blockSize;
-          for (y = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; y = 0 <= _ref ? ++_i : --_i) {
-            for (x = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; x = 0 <= _ref1 ? ++_j : --_j) {
-              half = this.gridSize / 2;
-              xx = 0;
-              if (x > half) {
-                xx = Math.floor(2 / (x - half));
-                this.copy[xx][y] = this.grid[x][y];
-              } else if (x < half) {
-                xx = (half - x) * 2;
-                this.copy[xx - 1][y] = this.grid[x][y];
-              }
-            }
-          }
         }
         _results = [];
-        for (x = _k = 0, _ref2 = this.gridSize; 0 <= _ref2 ? _k < _ref2 : _k > _ref2; x = 0 <= _ref2 ? ++_k : --_k) {
+        for (x = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
           _results.push((function() {
-            var _l, _ref3, _results1;
+            var _j, _ref1, _results1;
             _results1 = [];
-            for (y = _l = 0, _ref3 = this.gridSize; 0 <= _ref3 ? _l < _ref3 : _l > _ref3; y = 0 <= _ref3 ? ++_l : --_l) {
+            for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
               if (Object.keys(this.copy[x][y]).length) {
                 _results1.push(this.copy[x][y].draw(this.ctx, this.shift + x * this.blockSize, y * this.blockSize));
               } else {
@@ -122,7 +109,8 @@
         if ((obj == null) || typeof obj !== 'object') {
           return obj;
         }
-        newInstance = new obj.constructor();
+        console.log(obj);
+        newInstance = new obj.constructor(obj.x, obj.y);
         for (key in obj) {
           newInstance[key] = this.clone(obj[key]);
         }

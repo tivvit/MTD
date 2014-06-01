@@ -97,7 +97,7 @@ define ['player'], (Player) ->
           if Object.keys(@hostPlayer.grid[x][y]).length
             if(@hostPlayer.grid[x][y].name != "Home")
               @hostPlayer.grid[x][y].shoot(@hostPlayer.soldiers, @hostPlayer);
-            @opponent.grid[x][y].shoot(@hostPlayer.soldiers, @opponent);
+#            @opponent.grid[x][y].shoot(@hostPlayer.soldiers, @opponent);
 
       if @hostPlayer.lives <= 0
         alert "You Lose";

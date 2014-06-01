@@ -18,6 +18,7 @@
         this.range = 4;
         this.speed = 2000;
         this.lastShot = 0;
+        this.shots = [];
       }
 
       return Water;

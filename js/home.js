@@ -11,10 +11,9 @@
 
       Home.prototype.draw = function(ctx, xx, yy) {
         var image;
-        this.ctx = ctx;
         image = new Image();
         image.src = "img/house.png";
-        return this.ctx.drawImage(image, xx, yy, 30, 30);
+        return ctx.drawImage(image, xx, yy, 30, 30);
       };
 
       Home.prototype.shoot = function(enemies, owner) {

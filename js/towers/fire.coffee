@@ -8,6 +8,7 @@ define ['towers/tower'], (Tower) ->
       @range = 4;
       @speed = 2000;
       @lastShot = 0;
+      @shots = [];
 
 
 #  window.Fire = Fire;

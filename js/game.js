@@ -92,7 +92,6 @@
               if (this.hostPlayer.grid[x][y].name !== "Home") {
                 this.hostPlayer.grid[x][y].shoot(this.hostPlayer.soldiers, this.hostPlayer);
               }
-              this.opponent.grid[x][y].shoot(this.hostPlayer.soldiers, this.opponent);
             }
           }
         }

@@ -3,12 +3,12 @@ define [], () ->
     constructor: (@x, @y)->
       @name = "Home";
 
-    draw: (@ctx, xx, yy) ->
+    draw: (ctx, xx, yy) ->
       image = new Image();
       image.src = "img/house.png";
   #    @ctx.fillRect(@x, @y, 30, 30);
   #    image.onload = =>
-      @ctx.drawImage(image,xx, yy, 30, 30);
+      ctx.drawImage(image,xx, yy, 30, 30);
 
     shoot: (@enemies, @owner) ->
       for key,enemy of @enemies

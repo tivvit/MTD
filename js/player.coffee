@@ -47,23 +47,23 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
 
     draw: (@ctx) ->
   #    console.log @grid;
-  #    @copy = @clone(@grid);
+#      @copy = @clone(@grid);
       @copy = @grid;
 
       if @isOpponent
         @shift = @gridSize*@blockSize;
 
   #      revert matrix
-        for y in [0...@gridSize]
-          for x in [0...@gridSize]
-            half = @gridSize/2;
-            xx = 0;
-            if x > half
-              xx = Math.floor(2 / (x - half));
-              @copy[xx][y] = @grid[x][y];
-            else if x < half
-              xx = (half - x) * 2;
-              @copy[xx-1][y] = @grid[x][y];
+#        for y in [0...@gridSize]
+#          for x in [0...@gridSize]
+#            half = @gridSize/2;
+#            xx = 0;
+#            if x > half
+#              xx = Math.floor(2 / (x - half));
+#              @copy[xx][y] = @grid[x][y];
+#            else if x < half
+#              xx = (half - x) * 2;
+#              @copy[xx-1][y] = @grid[x][y];
 
       for x in [0...@gridSize]
         for y in [0...@gridSize]
@@ -74,7 +74,8 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
       if not obj? or typeof obj isnt 'object'
         return obj
 
-      newInstance = new obj.constructor()
+      console.log obj;
+      newInstance = new obj.constructor(obj.x, obj.y);
 
       for key of obj
         newInstance[key] = @clone obj[key]
