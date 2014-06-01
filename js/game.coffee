@@ -78,7 +78,7 @@ define ['player', 'towers/config'], (Player, config) ->
 
       @waveLoop = setInterval @waveTick, 1000;
       @shootLoop = setInterval @shoot, 100;
-      @findPathLoop = setInterval @findPath, 2000;
+      @findPathLoop = setInterval @findPath, 500;
 
       window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
       window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -110,8 +110,10 @@ define ['player', 'towers/config'], (Player, config) ->
 
     createGameMatrix: ->
       mat = @hostPlayer.generateMatrix();
-      mat[@hostPlayer.homePosition.x][@hostPlayer.homePosition.y] = 0;
+      mat[@hostPlayer.homePosition.y][@hostPlayer.homePosition.x] = 0;
+#      console.log mat;
       mat1 = @opponent.generateMatrix();
+      mat1[@opponent.homePosition.y][@opponent.homePosition.x] = 0;
 
       for x, v of mat1
         for y, val of mat1[x]

@@ -19,6 +19,8 @@
           x: 0,
           y: 9
         };
+        this.xshift = 0;
+        this.yshift = 0;
       }
 
       Enemy.prototype.draw = function(ctx) {
@@ -35,15 +37,19 @@
           if (this.path.length > 0) {
             if (actual.x - this.path[0].x > 0) {
               this.x -= this.speed * dt;
+              this.xshift = 15;
             }
             if (actual.x - this.path[0].x < 0) {
               this.x += this.speed * dt;
+              this.xshift = -15;
             }
             if (actual.y - this.path[0].y > 0) {
               this.y -= this.speed * dt;
+              this.yshift = 15;
             }
             if (actual.y - this.path[0].y < 0) {
               this.y += this.speed * dt;
+              this.yshift = -15;
             }
           }
           image = new Image();
@@ -55,8 +61,8 @@
       Enemy.prototype.position = function() {
         var pos, x, y;
         pos = {};
-        x = Math.round(this.x / this.blockSize);
-        y = Math.round(this.y / this.blockSize);
+        x = Math.round((this.x + this.xshift) / this.blockSize);
+        y = Math.round((this.y + this.yshift) / this.blockSize);
         pos["x"] = x;
         pos["y"] = y;
         return pos;
@@ -65,29 +71,15 @@
       Enemy.prototype.findPath = function(grid, host, opponent) {
         var pos;
         easystar = new EasyStar.js();
-        grid[3][9] = 1;
-        grid[3][8] = 1;
-        grid[3][10] = 1;
         easystar.setGrid(grid);
         easystar.setAcceptableTiles([0]);
         pos = this.position();
-        easystar.findPath(pos.x, pos.y, opponent.homePosition.x + this.gridSize, opponent.homePosition.y, (function(_this) {
+        easystar.findPath(pos.x, pos.y, (opponent.homePosition.x * 2) + 1, opponent.homePosition.y, (function(_this) {
           return function(path) {
-            var x, _i, _len, _results;
             if (path === null) {
               return console.log("Path was not found.");
             } else {
-              _this.path = path;
-              _results = [];
-              for (_i = 0, _len = path.length; _i < _len; _i++) {
-                x = path[_i];
-                if (x.y !== 9) {
-                  _results.push(console.log(x));
-                } else {
-                  _results.push(void 0);
-                }
-              }
-              return _results;
+              return _this.path = path;
             }
           };
         })(this));

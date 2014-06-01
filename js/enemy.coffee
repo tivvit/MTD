@@ -7,6 +7,8 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
       @lastAnimated;
       @path = []
       @path[0] = {x: 0, y: 9};
+      @xshift = 0;
+      @yshift = 0;
 
     draw: (@ctx) ->
       if @path.length > 0
@@ -15,26 +17,24 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
 
         @lastAnimated = now;
 
-#        if @path[0].y != 9
-#          console.log "heureka";
-
         actual = @position();
         if !(actual.x == 0 && actual.y == 9 && @path.length == 1) && actual.x == @path[0].x && actual.y == @path[0].y
           @path.splice(0,1);
 
 #        console.log @path;
         if(@path.length > 0)
-#          if @path[0].x < 6
-#            console.log @path[0].y;
-
           if actual.x - @path[0].x > 0
             @x -= @speed * dt;
+            @xshift = 15;
           if actual.x - @path[0].x < 0
             @x += @speed * dt;
+            @xshift = -15;
           if actual.y - @path[0].y > 0
             @y -= @speed * dt;
+            @yshift = 15;
           if actual.y - @path[0].y < 0
             @y += @speed * dt;
+            @yshift = -15;
 
         image = new Image();
         image.src = "img/alien.png";
@@ -43,8 +43,8 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
 
     position: ->
       pos = {};
-      x = Math.round((@x)/@blockSize);
-      y = Math.round((@y)/@blockSize);
+      x = Math.round((@x+@xshift)/@blockSize);
+      y = Math.round((@y+@yshift)/@blockSize);
 #      if x >= 20
 #        x -= 20;
 #      if y >= 20
@@ -56,20 +56,16 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
     findPath: (grid, host, opponent)->
 #      console.log EasyStar.js()
       easystar = new EasyStar.js()
-      grid[3][9] = 1;
-      grid[3][8] = 1;
-      grid[3][10] = 1;
       easystar.setGrid(grid);
       easystar.setAcceptableTiles([0]);
       pos = @position();
-      easystar.findPath pos.x, pos.y, opponent.homePosition.x+@gridSize, opponent.homePosition.y, (path) =>
+#      console.log grid
+#      console.log opponent.homePosition.x, opponent.homePosition.y
+      easystar.findPath pos.x, pos.y, (opponent.homePosition.x*2)+1, opponent.homePosition.y, (path) =>
         if (path == null)
           console.log("Path was not found.");
         else
           @path = path;
-          for x in path
-            if (x.y != 9)
-              console.log x;
       easystar.calculate();
 
 

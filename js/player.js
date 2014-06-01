@@ -86,9 +86,9 @@
         for (x = _l = 0, _ref2 = this.gridSize; 0 <= _ref2 ? _l < _ref2 : _l > _ref2; x = 0 <= _ref2 ? ++_l : --_l) {
           for (y = _m = 0, _ref3 = this.gridSize; 0 <= _ref3 ? _m < _ref3 : _m > _ref3; y = 0 <= _ref3 ? ++_m : --_m) {
             if (Object.keys(this.copy[x][y]).length) {
-              mat[x][y] = 1;
+              mat[y][x] = 1;
             } else {
-              mat[x][y] = 0;
+              mat[y][x] = 0;
             }
           }
         }

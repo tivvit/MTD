@@ -57,9 +57,9 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
       for x in [0...@gridSize]
         for y in [0...@gridSize]
           if Object.keys(@copy[x][y]).length
-            mat[x][y] = 1;
+            mat[y][x] = 1;
           else
-            mat[x][y] = 0;
+            mat[y][x] = 0;
 
       return mat;
 

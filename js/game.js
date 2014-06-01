@@ -94,7 +94,7 @@
         }
         this.waveLoop = setInterval(this.waveTick, 1000);
         this.shootLoop = setInterval(this.shoot, 100);
-        this.findPathLoop = setInterval(this.findPath, 2000);
+        this.findPathLoop = setInterval(this.findPath, 500);
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       }
 
@@ -113,8 +113,9 @@
       Game.prototype.createGameMatrix = function() {
         var mat, mat1, v, val, x, y, ypos, _ref;
         mat = this.hostPlayer.generateMatrix();
-        mat[this.hostPlayer.homePosition.x][this.hostPlayer.homePosition.y] = 0;
+        mat[this.hostPlayer.homePosition.y][this.hostPlayer.homePosition.x] = 0;
         mat1 = this.opponent.generateMatrix();
+        mat1[this.opponent.homePosition.y][this.opponent.homePosition.x] = 0;
         for (x in mat1) {
           v = mat1[x];
           _ref = mat1[x];
