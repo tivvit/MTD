@@ -82,7 +82,7 @@
           })(this);
         }
         this.waveLoop = setInterval(this.waveTick, 1000);
-        this.shootLoop = setInterval(this.shoot, 10);
+        this.shootLoop = setInterval(this.shoot, 1000);
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       }
 

@@ -68,7 +68,7 @@ define ['player'], (Player) ->
   #        console.log(@draggedOffset);
 
       @waveLoop = setInterval @waveTick, 1000;
-      @shootLoop = setInterval @shoot, 10;
+      @shootLoop = setInterval @shoot, 1000;
 
       window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
       window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
