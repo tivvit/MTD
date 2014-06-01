@@ -11,8 +11,8 @@
       function Water(x, y) {
         this.x = x;
         this.y = y;
-        this.name = "Water";
-        this.img = "img/droplet.svg";
+        this.name = config.water.name;
+        this.img = config.water.img;
         this.price = config.water.price;
         this.attack = config.water.attack;
         this.range = config.water.range;

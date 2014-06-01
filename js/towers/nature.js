@@ -11,8 +11,8 @@
       function Nature(x, y) {
         this.x = x;
         this.y = y;
-        this.name = "Nature";
-        this.img = "img/leaf.svg";
+        this.name = config.nature.name;
+        this.img = config.nature.img;
         this.price = config.nature.price;
         this.attack = config.nature.attack;
         this.range = config.nature.range;

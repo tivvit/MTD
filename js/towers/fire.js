@@ -11,8 +11,8 @@
       function Fire(x, y) {
         this.x = x;
         this.y = y;
-        this.name = "Fire";
-        this.img = "img/fire.svg";
+        this.name = config.fire.name;
+        this.img = config.fire.img;
         this.price = config.fire.price;
         this.attack = config.fire.attack;
         this.range = config.fire.range;

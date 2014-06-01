@@ -2,7 +2,7 @@
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  define(['player'], function(Player) {
+  define(['player', 'towers/config'], function(Player, config) {
     var Game;
     return Game = (function() {
       var size;
@@ -16,7 +16,7 @@
         this.clear = __bind(this.clear, this);
         this.waveTick = __bind(this.waveTick, this);
         this.shoot = __bind(this.shoot, this);
-        var tower, _i, _len, _ref;
+        var key, parent, tower, type, _i, _len, _ref;
         this.gridSize = 20;
         this.blockSize = 30;
         this.ctx = document.querySelector('#game').getContext('2d');
@@ -80,6 +80,16 @@
               };
             };
           })(this);
+        }
+        for (key in config) {
+          type = config[key];
+          parent = document.querySelector("#" + type.name);
+          parent.querySelector("img").src = type.img;
+          parent.querySelector(".name").innerText = type.name;
+          parent.querySelector(".attack").innerText = type.attack;
+          parent.querySelector(".speed").innerText = type.speed;
+          parent.querySelector(".range").innerText = type.range;
+          parent.querySelector(".price").innerText = type.price;
         }
         this.waveLoop = setInterval(this.waveTick, 1000);
         this.shootLoop = setInterval(this.shoot, 1000);

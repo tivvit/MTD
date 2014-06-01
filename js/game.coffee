@@ -1,6 +1,6 @@
 #alert "hi cofeee";
 
-define ['player'], (Player) ->
+define ['player', 'towers/config'], (Player, config) ->
   class Game
     size = {x : 1200, y: 600};
 
@@ -66,6 +66,15 @@ define ['player'], (Player) ->
   #        console.log e.pageX, e.target.id, e.srcElement.offsetLeft, e.srcElement.clientX, e.srcElement.parentElement()..clientX
           @draggedOffset = {x: e.layerX , y: e.layerY}; #e.pageX - e.target.offsetLeft
   #        console.log(@draggedOffset);
+
+      for key, type of config
+        parent = document.querySelector("#"+type.name);
+        parent.querySelector("img").src = type.img;
+        parent.querySelector(".name").innerText = type.name;
+        parent.querySelector(".attack").innerText = type.attack;
+        parent.querySelector(".speed").innerText = type.speed;
+        parent.querySelector(".range").innerText = type.range;
+        parent.querySelector(".price").innerText = type.price;
 
       @waveLoop = setInterval @waveTick, 1000;
       @shootLoop = setInterval @shoot, 1000;

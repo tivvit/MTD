@@ -1,8 +1,8 @@
 define ['towers/tower', 'towers/config'], (Tower, config) ->
   class Wind extends Tower
     constructor: (@x, @y)->
-      @name = "Wind";
-      @img = "img/twister.svg";
+      @name = config.wind.name;
+      @img = config.wind.img;
       @price = config.wind.price;
       @attack = config.wind.attack;
       @range = config.wind.range;

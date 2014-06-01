@@ -1,6 +1,10 @@
 @import "../js/bower_components/bootstrap/dist/css/bootstrap.min.css";
 
 @import "../js/bower_components/bootstrap/dist/css/bootstrap-theme.min.css";
+#logo {
+  padding: 10px;
+  max-width: 100px;
+}
 #game {
   border: 1px solid black;
   max-width: 100%;
@@ -25,6 +29,7 @@
   height: 30px;
   margin-bottom: 8px;
   text-align: center;
+  border-radius: 8px;
 }
 #controls ul li:hover {
   background-color: rgba(100, 100, 100, 0.4);
@@ -35,7 +40,7 @@
 }
 #stats {
   background-color: rgba(250, 250, 250, 0.8);
-  margin-top: 6px;
+  margin-top: 14px;
   padding: 0;
   border-radius: 8px;
   font-size: 16px;
@@ -56,4 +61,33 @@
 }
 #stats #waves {
   padding: 4px 6px;
+}
+.info {
+  margin-top: 20px;
+}
+.info > div {
+  margin-bottom: 15px;
+}
+.info > div > div {
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(250, 250, 250, 0.8);
+}
+.info > div > div div {
+  padding: 0;
+}
+.info h2 {
+  text-align: center;
+  margin: 0;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.info img {
+  max-width: 100%;
+  max-height: 100%;
+  padding: 10px;
+}
+.info .properties > div {
+  padding: 10px;
+  font-size: 16px;
 }

@@ -1,8 +1,8 @@
 define ['towers/tower', 'towers/config'], (Tower, config) ->
   class Fire extends Tower
     constructor: (@x, @y)->
-      @name = "Fire";
-      @img = "img/fire.svg";
+      @name = config.fire.name;
+      @img = config.fire.img;
       @price = config.fire.price;
       @attack = config.fire.attack;
       @range = config.fire.range;
