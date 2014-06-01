@@ -18,7 +18,28 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
 
   #    check for emptyness
       if Object.keys(@grid).length
-        @grid[@homePosition.x][@homePosition.y] = new Home(@homePosition.x, @homePosition.y);
+        if !@isOpponent
+          @grid[@homePosition.x][@homePosition.y] = new Home(@homePosition.x, @homePosition.y);
+        else
+          pos = @findMirrored(@homePosition.x, @homePosition.y)
+          @grid[pos.x][pos.y] = new Home(pos.x, pos.y);
+
+    findMirrored: (x, y) ->
+      half = @gridSize/2;
+#      xx = 0;
+#      if x > half
+#        xx = Math.floor(2 / (x - half));
+#        pos = {};
+#        pos["x"] = xx;
+#        pos["y"] = y;
+#        return pos;
+#      else if x < half
+#        xx = (half - x) * 2;
+      xx = 19 - x;
+      pos = {};
+      pos["x"] = xx;
+      pos["y"] = y;
+      return pos;
 
     addTower: (@type, @x, @y) ->
       switch @type

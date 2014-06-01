@@ -6,7 +6,7 @@
     var Player;
     return Player = (function() {
       function Player(blockSize, gridSize, isOpponent) {
-        var inner, x, y, _i, _j, _ref, _ref1;
+        var inner, pos, x, y, _i, _j, _ref, _ref1;
         this.blockSize = blockSize;
         this.gridSize = gridSize;
         this.isOpponent = isOpponent;
@@ -31,9 +31,24 @@
           this.grid[x] = inner;
         }
         if (Object.keys(this.grid).length) {
-          this.grid[this.homePosition.x][this.homePosition.y] = new Home(this.homePosition.x, this.homePosition.y);
+          if (!this.isOpponent) {
+            this.grid[this.homePosition.x][this.homePosition.y] = new Home(this.homePosition.x, this.homePosition.y);
+          } else {
+            pos = this.findMirrored(this.homePosition.x, this.homePosition.y);
+            this.grid[pos.x][pos.y] = new Home(pos.x, pos.y);
+          }
         }
       }
+
+      Player.prototype.findMirrored = function(x, y) {
+        var half, pos, xx;
+        half = this.gridSize / 2;
+        xx = 19 - x;
+        pos = {};
+        pos["x"] = xx;
+        pos["y"] = y;
+        return pos;
+      };
 
       Player.prototype.addTower = function(type, x, y) {
         this.type = type;

@@ -92,7 +92,7 @@
           parent.querySelector(".price").innerText = type.price;
         }
         this.waveLoop = setInterval(this.waveTick, 1000);
-        this.shootLoop = setInterval(this.shoot, 1000);
+        this.shootLoop = setInterval(this.shoot, 100);
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       }
 
@@ -105,18 +105,21 @@
                 this.hostPlayer.grid[x][y].shoot(this.hostPlayer.soldiers, this.hostPlayer);
               }
             }
+            if (Object.keys(this.opponent.grid[x][y]).length) {
+              this.opponent.grid[x][y].shoot(this.hostPlayer.soldiers, this.opponent);
+            }
           }
+        }
+        if (this.hostPlayer.lives <= 0 || this.opponent.lives <= 0) {
+          clearInterval(this.waveLoop);
+          clearInterval(this.shootLoop);
+          this.end = true;
         }
         if (this.hostPlayer.lives <= 0) {
           alert("You Lose");
         }
         if (this.opponent.lives <= 0) {
-          alert("You Won");
-        }
-        if (this.hostPlayer.lives <= 0 || this.opponent.lives <= 0) {
-          clearInterval(this.waveLoop);
-          clearInterval(this.shootLoop);
-          return this.end = true;
+          return alert("You Won");
         }
       };
 

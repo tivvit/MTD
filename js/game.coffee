@@ -77,7 +77,7 @@ define ['player', 'towers/config'], (Player, config) ->
         parent.querySelector(".price").innerText = type.price;
 
       @waveLoop = setInterval @waveTick, 1000;
-      @shootLoop = setInterval @shoot, 1000;
+      @shootLoop = setInterval @shoot, 100;
 
       window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
       window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -107,16 +107,18 @@ define ['player', 'towers/config'], (Player, config) ->
           if Object.keys(@hostPlayer.grid[x][y]).length
             if(@hostPlayer.grid[x][y].name != "Home")
               @hostPlayer.grid[x][y].shoot(@hostPlayer.soldiers, @hostPlayer);
-#            @opponent.grid[x][y].shoot(@hostPlayer.soldiers, @opponent);
+          if Object.keys(@opponent.grid[x][y]).length
+            @opponent.grid[x][y].shoot(@hostPlayer.soldiers, @opponent);
+
+      if @hostPlayer.lives <= 0 || @opponent.lives <= 0
+        clearInterval @waveLoop;
+        clearInterval @shootLoop;
+        @end = true;
 
       if @hostPlayer.lives <= 0
         alert "You Lose";
       if @opponent.lives <= 0
         alert "You Won";
-      if @hostPlayer.lives <= 0 || @opponent.lives <= 0
-        clearInterval @waveLoop;
-        clearInterval @shootLoop;
-        @end = true;
 
     waveTick: =>
       @nextWave -= 1;

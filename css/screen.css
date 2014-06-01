@@ -54,7 +54,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 #stats #players > div > div {
-  padding: 0 0 0 4px;
+  padding: 0 0 0 8px;
 }
 #stats #players > div > div:first-child {
   font-weight: bold;
