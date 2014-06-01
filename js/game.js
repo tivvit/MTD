@@ -56,7 +56,9 @@
             if (x < _this.gridSize * _this.blockSize) {
               xx = Math.round(x / _this.blockSize);
               yy = Math.round(y / _this.blockSize);
-              _this.hostPlayer.addTower(type, xx, yy);
+              if (!Object.keys(_this.hostPlayer.grid[xx][yy]).length) {
+                _this.hostPlayer.addTower(type, xx, yy);
+              }
             }
             _this.blocked = false;
             return _this.clear();
@@ -172,8 +174,25 @@
       };
 
       Game.prototype.showBlocked = function() {
+        var x, y, _i, _ref, _results;
         this.ctx.fillStyle = "rgba(250, 0, 0, .1)";
-        return this.ctx.fillRect(this.gridSize * this.blockSize, 0, size.x, size.y);
+        this.ctx.fillRect(this.gridSize * this.blockSize, 0, size.x, size.y);
+        _results = [];
+        for (x = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
+          _results.push((function() {
+            var _j, _ref1, _results1;
+            _results1 = [];
+            for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
+              if (Object.keys(this.hostPlayer.grid[x][y]).length) {
+                _results1.push(this.ctx.fillRect(x * this.blockSize, y * this.blockSize, this.blockSize, this.blockSize));
+              } else {
+                _results1.push(void 0);
+              }
+            }
+            return _results1;
+          }).call(this));
+        }
+        return _results;
       };
 
       Game.prototype.preload = function() {

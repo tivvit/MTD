@@ -49,7 +49,8 @@ define ['player'], (Player) ->
           xx = Math.round(x/@blockSize)
           yy =  Math.round(y/@blockSize)
   #        console.log xx, yy;
-          @hostPlayer.addTower(type, xx, yy);
+          if !Object.keys(@hostPlayer.grid[xx][yy]).length
+            @hostPlayer.addTower(type, xx, yy);
   #        @opponent.addTower(type, xx, yy);
 
         @blocked = false;
@@ -163,6 +164,13 @@ define ['player'], (Player) ->
     showBlocked: ->
       @ctx.fillStyle = "rgba(250, 0, 0, .1)";
       @ctx.fillRect(@gridSize*@blockSize, 0, size.x, size.y);
+
+      for x in [0...@gridSize]
+        for y in [0...@gridSize]
+          if Object.keys(@hostPlayer.grid[x][y]).length
+            @ctx.fillRect(x*@blockSize, y*@blockSize, @blockSize, @blockSize);
+
+
 
     preload: ->
       imageList = [
