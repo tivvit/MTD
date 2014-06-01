@@ -1,12 +1,12 @@
-define ['towers/tower'], (Tower) ->
+define ['towers/tower', 'towers/config'], (Tower, config) ->
   class Water extends Tower
     constructor: (@x, @y)->
       @name = "Water";
       @img = "img/droplet.svg"
-      @price = 30;
-      @attack = 2;
-      @range = 4;
-      @speed = 2000;
+      @price = config.water.price;
+      @attack = config.water.attack;
+      @range = config.water.range;
+      @speed = config.water.speed;
       @lastShot = 0;
       @shots = [];
 

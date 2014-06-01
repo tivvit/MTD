@@ -1,12 +1,12 @@
-define ['towers/tower'], (Tower) ->
+define ['towers/tower', 'towers/config'], (Tower, config) ->
   class Fire extends Tower
     constructor: (@x, @y)->
       @name = "Fire";
       @img = "img/fire.svg";
-      @price = 30;
-      @attack = 2;
-      @range = 4;
-      @speed = 2000;
+      @price = config.fire.price;
+      @attack = config.fire.attack;
+      @range = config.fire.range;
+      @speed = config.fire.speed;
       @lastShot = 0;
       @shots = [];
 

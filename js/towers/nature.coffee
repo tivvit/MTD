@@ -1,12 +1,12 @@
-define ['towers/tower'], (Tower) ->
+define ['towers/tower', 'towers/config'], (Tower, config) ->
   class Nature extends Tower
     constructor: (@x, @y)->
       @name = "Nature";
       @img = "img/leaf.svg";
-      @price = 30;
-      @attack = 2;
-      @range = 4;
-      @speed = 2000;
+      @price = config.nature.price;
+      @attack = config.nature.attack;
+      @range = config.nature.range;
+      @speed = config.nature.speed;
       @lastShot = 0;
       @shots = []
 
