@@ -15,6 +15,7 @@ define ['player'], (Player) ->
       @nextWave = 1;
       @waveTime = 10;
       @blocked = false;
+      @end = false;
 
       @canvas = document.querySelector('#game');
 
@@ -65,8 +66,8 @@ define ['player'], (Player) ->
           @draggedOffset = {x: e.layerX , y: e.layerY}; #e.pageX - e.target.offsetLeft
   #        console.log(@draggedOffset);
 
-      setInterval @waveTick, 1000;
-      setInterval @shoot, 10;
+      @waveLoop = setInterval @waveTick, 1000;
+      @shootLoop = setInterval @shoot, 10;
 
       window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
       window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -97,6 +98,15 @@ define ['player'], (Player) ->
             if(@hostPlayer.grid[x][y].name != "Home")
               @hostPlayer.grid[x][y].shoot(@hostPlayer.soldiers, @hostPlayer);
             @opponent.grid[x][y].shoot(@hostPlayer.soldiers, @opponent);
+
+      if @hostPlayer.lives <= 0
+        alert "You Lose";
+      if @opponent.lives <= 0
+        alert "You Won";
+      if @hostPlayer.lives <= 0 || @opponent.lives <= 0
+        clearInterval @waveLoop;
+        clearInterval @shootLoop;
+        @end = true;
 
     waveTick: =>
       @nextWave -= 1;
@@ -147,7 +157,8 @@ define ['player'], (Player) ->
         enemy.draw @ctx;
   #      enemy.x++;
 
-      requestAnimationFrame @clear;
+      if !@end
+        requestAnimationFrame @clear;
 
     showBlocked: ->
       @ctx.fillStyle = "rgba(250, 0, 0, .1)";

@@ -20,7 +20,5 @@ define [], () ->
           if pos.x == @x && pos.y == @y
               @enemies.splice(key, 1);
               @owner.lives--;
-          if @owner.lives <= 0
-            console.log "end Game";
 
 #  window.Home = Home;

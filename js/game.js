@@ -27,6 +27,7 @@
         this.nextWave = 1;
         this.waveTime = 10;
         this.blocked = false;
+        this.end = false;
         this.canvas = document.querySelector('#game');
         this.canvas.ondragover = (function(_this) {
           return function(e) {
@@ -78,32 +79,34 @@
             };
           })(this);
         }
-        setInterval(this.waveTick, 1000);
-        setInterval(this.shoot, 10);
+        this.waveLoop = setInterval(this.waveTick, 1000);
+        this.shootLoop = setInterval(this.shoot, 10);
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       }
 
       Game.prototype.shoot = function() {
-        var x, y, _i, _ref, _results;
-        _results = [];
+        var x, y, _i, _j, _ref, _ref1;
         for (x = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
-          _results.push((function() {
-            var _j, _ref1, _results1;
-            _results1 = [];
-            for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
-              if (Object.keys(this.hostPlayer.grid[x][y]).length) {
-                if (this.hostPlayer.grid[x][y].name !== "Home") {
-                  this.hostPlayer.grid[x][y].shoot(this.hostPlayer.soldiers, this.hostPlayer);
-                }
-                _results1.push(this.opponent.grid[x][y].shoot(this.hostPlayer.soldiers, this.opponent));
-              } else {
-                _results1.push(void 0);
+          for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
+            if (Object.keys(this.hostPlayer.grid[x][y]).length) {
+              if (this.hostPlayer.grid[x][y].name !== "Home") {
+                this.hostPlayer.grid[x][y].shoot(this.hostPlayer.soldiers, this.hostPlayer);
               }
+              this.opponent.grid[x][y].shoot(this.hostPlayer.soldiers, this.opponent);
             }
-            return _results1;
-          }).call(this));
+          }
         }
-        return _results;
+        if (this.hostPlayer.lives <= 0) {
+          alert("You Lose");
+        }
+        if (this.opponent.lives <= 0) {
+          alert("You Won");
+        }
+        if (this.hostPlayer.lives <= 0 || this.opponent.lives <= 0) {
+          clearInterval(this.waveLoop);
+          clearInterval(this.shootLoop);
+          return this.end = true;
+        }
       };
 
       Game.prototype.waveTick = function() {
@@ -164,7 +167,9 @@
           enemy = _ref[_i];
           enemy.draw(this.ctx);
         }
-        return requestAnimationFrame(this.clear);
+        if (!this.end) {
+          return requestAnimationFrame(this.clear);
+        }
       };
 
       Game.prototype.showBlocked = function() {

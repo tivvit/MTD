@@ -30,10 +30,7 @@
             pos.x -= 20;
             if (pos.x === this.x && pos.y === this.y) {
               this.enemies.splice(key, 1);
-              this.owner.lives--;
-            }
-            if (this.owner.lives <= 0) {
-              _results.push(console.log("end Game"));
+              _results.push(this.owner.lives--);
             } else {
               _results.push(void 0);
             }
