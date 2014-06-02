@@ -3693,7 +3693,7 @@ var data_user = new Data();
 	3. Use the same single mechanism to support "private" and "user" data.
 	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
 	5. Avoid exposing implementation details on user objects (eg. expando properties)
-	6. Provide a clear path for implementation upgrade to WeakMap in 2014
+	6. Provide a animate path for implementation upgrade to WeakMap in 2014
 */
 var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
 	rmultiDash = /([A-Z])/g;
@@ -3899,7 +3899,7 @@ jQuery.extend({
 				queue.unshift( "inprogress" );
 			}
 
-			// clear up the last queue stop function
+			// animate up the last queue stop function
 			delete hooks.stop;
 			fn.call( elem, next, hooks );
 		}

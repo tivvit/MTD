@@ -8,7 +8,18 @@
     <link rel="profile" href="http://microformats.org/profile/hcard">
 </head>
 <body>
-    <div class="container">
+<div class="container">
+    <div id="menu" class="page">
+        <div id="welcome"></div>
+        <form>
+            <input type="text" class="form-control" placeholder="Player" autofocus="autofocus">
+        </form>
+        <nav>
+            <a href="#single" class="col-sm-3 col-sm-offset-2 btn btn-default">Singleplayer</a>
+            <a href="#multi" class="col-sm-3 col-sm-offset-2 btn btn-default" disabled="disabled">Multiplayer (soon)</a>
+        </nav>
+    </div>
+    <div id="single" class="page">
         <div class="col-xs-2">
             <img src="img/logo.svg" id="logo">
         </div>
@@ -105,19 +116,21 @@
         </div>
 
         <div id="media" class="col-md-12"></div>
+
+        <div id="controls">
+            <ul>
+                <li><img src="img/fire.svg" data-name="Fire" draggable="true" class="tower"></li>
+                <li><img src="img/water.svg" data-name="Water" draggable="true" class="tower"></li>
+                <li><img src="img/leaf.svg" data-name="Nature" draggable="true" class="tower"></li>
+                <li><img src="img/wind.svg" data-name="Wind" draggable="true" class="tower"></li>
+                <li><img src="img/delete.svg" data-name="delete" draggable="true" class="tower"></li>
+            </ul>
+        </div>
     </div>
-    <div id="controls">
-        <ul>
-            <li><img src="img/fire.svg" data-name="Fire" draggable="true" class="tower"></li>
-            <li><img src="img/water.svg" data-name="Water" draggable="true" class="tower"></li>
-            <li><img src="img/leaf.svg" data-name="Nature" draggable="true" class="tower"></li>
-            <li><img src="img/wind.svg" data-name="Wind" draggable="true" class="tower"></li>
-            <li><img src="img/delete.svg" data-name="delete" draggable="true" class="tower"></li>
-        </ul>
-    </div>
-    <footer>
-        <a href="https://github.com/tivvit/mtd">Fork me on github</a>
-    </footer>
-    <script data-main="js/mtd.js" src="js/bower_components/requirejs/require.js"></script>
+</div>
+<footer>
+    <a href="https://github.com/tivvit/mtd">Fork me on github</a>
+</footer>
+<script data-main="js/mtd.js" src="js/bower_components/requirejs/require.js"></script>
 </body>
 </html>

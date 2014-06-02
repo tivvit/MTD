@@ -19,18 +19,18 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
 
       @canvas = document.querySelector('#game');
 
-      @canvas.ondragover = (e) =>
+      @canvas.addEventListener "dragover", (e) =>
         e.preventDefault();
 
-      @canvas.ondragenter = (e) =>
+      @canvas.addEventListener "dragenter", (e) =>
         @blocked = true;
 
-      @canvas.ondragleave = (e) =>
+      @canvas.addEventListener "dragleave", (e) =>
         e.preventDefault();
         @blocked = false;
-        @clear();
+        @animate();
 
-      @canvas.ondrop = (e) =>
+      @canvas.addEventListener "drop", (e) =>
         e.preventDefault();
         type = e.dataTransfer.getData("Name");
 
@@ -68,13 +68,14 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
               easystar.calculate();
 
         @blocked = false;
-        @clear();
+
+      @animate();
 
       for tower in document.querySelectorAll('.tower')
-        tower.ondragstart = (e) =>
+        tower.addEventListener "dragstart", (e) =>
           e.dataTransfer.setData("Name",e.target.dataset.name);
   #        console.log e.target.dataset;
-        tower.onmousedown = (e) =>
+        tower.addEventListener "mousedown", (e) =>
           @draggedOffset = {x: e.offsetLeft , y: e.offsetTop};
 
       for key, type of config
@@ -167,7 +168,7 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
       @ctx.fillStyle = "black";
       @ctx.fillRect(size.x/2, 0, 1, size.y);
 
-    clear: =>
+    animate: =>
       @ctx.clearRect(0, 0, @canvas.width, @canvas.height);
   #    console.log "clearing";
       @ctx.fillStyle = "rgb(230, 230, 230)";
@@ -195,7 +196,7 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
         enemy.draw @ctx;
 
       if !@end
-        requestAnimationFrame @clear;
+        requestAnimationFrame @animate;
 
     showBlocked: ->
       @ctx.fillStyle = "rgba(250, 0, 0, .1)";

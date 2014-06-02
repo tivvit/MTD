@@ -6,7 +6,16 @@
 
   define(['game', 'audio'], function(Game, audio) {
     audio.createAudio();
-    new Game().clear();
+    if (window.location.hash === "") {
+      window.location.hash = "#menu";
+    }
+    window.addEventListener("hashchange", (function(_this) {
+      return function() {
+        if (window.location.hash === "#single") {
+          return new Game();
+        }
+      };
+    })(this));
     window.addEventListener("online", function() {
       return alert("Connection restored");
     });

@@ -13,7 +13,7 @@
       };
 
       function Game() {
-        this.clear = __bind(this.clear, this);
+        this.animate = __bind(this.animate, this);
         this.waveTick = __bind(this.waveTick, this);
         this.shoot = __bind(this.shoot, this);
         this.createGameMatrix = __bind(this.createGameMatrix, this);
@@ -31,24 +31,24 @@
         this.blocked = false;
         this.end = false;
         this.canvas = document.querySelector('#game');
-        this.canvas.ondragover = (function(_this) {
+        this.canvas.addEventListener("dragover", (function(_this) {
           return function(e) {
             return e.preventDefault();
           };
-        })(this);
-        this.canvas.ondragenter = (function(_this) {
+        })(this));
+        this.canvas.addEventListener("dragenter", (function(_this) {
           return function(e) {
             return _this.blocked = true;
           };
-        })(this);
-        this.canvas.ondragleave = (function(_this) {
+        })(this));
+        this.canvas.addEventListener("dragleave", (function(_this) {
           return function(e) {
             e.preventDefault();
             _this.blocked = false;
-            return _this.clear();
+            return _this.animate();
           };
-        })(this);
-        this.canvas.ondrop = (function(_this) {
+        })(this));
+        this.canvas.addEventListener("drop", (function(_this) {
           return function(e) {
             var actualBlockSize, actualHeight, actualWidth, mat, type, x, xx, y, yy;
             e.preventDefault();
@@ -87,26 +87,26 @@
                 }
               }
             }
-            _this.blocked = false;
-            return _this.clear();
+            return _this.blocked = false;
           };
-        })(this);
+        })(this));
+        this.animate();
         _ref = document.querySelectorAll('.tower');
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           tower = _ref[_i];
-          tower.ondragstart = (function(_this) {
+          tower.addEventListener("dragstart", (function(_this) {
             return function(e) {
               return e.dataTransfer.setData("Name", e.target.dataset.name);
             };
-          })(this);
-          tower.onmousedown = (function(_this) {
+          })(this));
+          tower.addEventListener("mousedown", (function(_this) {
             return function(e) {
               return _this.draggedOffset = {
                 x: e.offsetLeft,
                 y: e.offsetTop
               };
             };
-          })(this);
+          })(this));
         }
         for (key in config) {
           type = config[key];
@@ -230,7 +230,7 @@
         return this.ctx.fillRect(size.x / 2, 0, 1, size.y);
       };
 
-      Game.prototype.clear = function() {
+      Game.prototype.animate = function() {
         var enemy, _i, _j, _len, _len1, _ref, _ref1;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.fillStyle = "rgb(230, 230, 230)";
@@ -258,7 +258,7 @@
           enemy.draw(this.ctx);
         }
         if (!this.end) {
-          return requestAnimationFrame(this.clear);
+          return requestAnimationFrame(this.animate);
         }
       };
 

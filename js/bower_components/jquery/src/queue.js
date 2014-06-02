@@ -50,7 +50,7 @@ jQuery.extend({
 				queue.unshift( "inprogress" );
 			}
 
-			// clear up the last queue stop function
+			// animate up the last queue stop function
 			delete hooks.stop;
 			fn.call( elem, next, hooks );
 		}
