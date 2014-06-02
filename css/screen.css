@@ -1,6 +1,58 @@
 @import "../js/bower_components/bootstrap/dist/css/bootstrap.min.css";
 
 @import "../js/bower_components/bootstrap/dist/css/bootstrap-theme.min.css";
+@-webkit-keyframes mv {
+  0%,
+  100% {
+    margin: 0 0 0 -100px;
+  }
+  50% {
+    margin: 0 0 0 100px;
+  }
+}
+@-moz-keyframes mv {
+  0%,
+  100% {
+    margin: 0 0 0 -100px;
+  }
+  50% {
+    margin: 0 0 0 100px;
+  }
+}
+@-ms-keyframes mv {
+  0%,
+  100% {
+    margin: 0 0 0 -100px;
+  }
+  50% {
+    margin: 0 0 0 100px;
+  }
+}
+@-o-keyframes mv {
+  0%,
+  100% {
+    margin: 0 0 0 -100px;
+  }
+  50% {
+    margin: 0 0 0 100px;
+  }
+}
+@keyframes mv {
+  0%,
+  100% {
+    margin: 0 0 0 -100px;
+  }
+  50% {
+    margin: 0 0 0 100px;
+  }
+}
+.mv 0%,
+.mv 100% {
+  margin: 0 0 0 -100px;
+}
+.mv 50% {
+  margin: 0 0 0 100px;
+}
 #logo {
   padding: 10px;
   max-width: 100px;
@@ -127,7 +179,16 @@ footer {
   text-align: center;
 }
 #welcome svg {
-  animation: move 4s linear infinite;
+  animation: mv 4s linear infinite;
+  -moz-animation: mv 4s linear infinite;
+  -webkit-animation: mv 4s linear infinite;
+}
+#welcome svg 0%,
+#welcome svg 100% {
+  margin: 0 0 0 -100px;
+}
+#welcome svg 50% {
+  margin: 0 0 0 100px;
 }
 #welcome svg .fil2 {
   fill: #2b2a29;
@@ -143,15 +204,6 @@ footer {
 }
 #welcome svg .fil1 {
   fill: #25de2c;
-}
-@keyframes move {
-  0%,
-  100% {
-    margin: 0 0 0 -100px;
-  }
-  50% {
-    margin: 0 0 0 100px;
-  }
 }
 form {
   margin-bottom: 60px;

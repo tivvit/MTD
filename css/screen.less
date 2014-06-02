@@ -3,6 +3,22 @@
 
 @radius: 8px;
 @bg: rgba(250, 250, 250, .8);
+.animation(@key) {
+  animation: @key 4s linear infinite;
+  -moz-animation: @key 4s linear infinite;
+  -webkit-animation: @key 4s linear infinite;
+}
+
+@-webkit-keyframes mv {.mv;}
+@-moz-keyframes mv {.mv;}
+@-ms-keyframes mv {.mv;}
+@-o-keyframes mv {.mv;}
+@keyframes mv {.mv;}
+
+.mv {
+  0%, 100% { margin: 0 0 0 -100px; }
+  50%      { margin: 0 0 0 100px; }
+}
 
 .left-radius() {
   border-top-left-radius: @radius;
@@ -167,7 +183,8 @@ footer {
   text-align: center;
 
   svg {
-    animation: move 4s linear infinite;
+    .animation(mv);
+    .mv;
 
     .fil2 {fill:#2B2A29}
     .fil4 {fill:#D9DADA}
@@ -175,11 +192,6 @@ footer {
     .fil0 {fill:#0090CC}
     .fil1 {fill:#25DE2C}
   }
-}
-
-@keyframes move {
-  0%, 100% { margin: 0 0 0 -100px; }
-  50%      { margin: 0 0 0 100px; }
 }
 
 form {
