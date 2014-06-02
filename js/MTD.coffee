@@ -2,13 +2,15 @@ requirejs.config({
   baseUrl: 'js'
 });
 
-define(['game', 'audio'],
-(Game, audio) ->
+define(['game', 'audio', 'logo'],
+(Game, audio, logo) ->
   audio.createAudio();
 
   if window.location.hash == ""
     window.location.hash = "#menu"
 
+  logo.drawLogo();
+  
   @name = "You";
 
   document.querySelector("form").addEventListener "submit", (e) ->

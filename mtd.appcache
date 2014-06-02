@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v30 2014-06-01
+# v41 2014-06-01
 music/mario.mp3
 index.html
 
@@ -29,6 +29,7 @@ js/enemy.js
 js/game.js
 js/home.js
 js/shot.js
+js/logo.js
 js/towers/tower.js
 js/towers/config.js
 js/towers/nature.js

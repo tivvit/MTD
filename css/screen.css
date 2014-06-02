@@ -123,9 +123,42 @@ footer {
   display: block;
 }
 #welcome {
-  margin: 200px 0 60px 0;
+  margin: 120px 0 60px 0;
   text-align: center;
+}
+#welcome svg {
+  animation: move 4s linear infinite;
+}
+#welcome svg .fil2 {
+  fill: #2b2a29;
+}
+#welcome svg .fil4 {
+  fill: #d9dada;
+}
+#welcome svg .fil3 {
+  fill: #e31e24;
+}
+#welcome svg .fil0 {
+  fill: #0090cc;
+}
+#welcome svg .fil1 {
+  fill: #25de2c;
+}
+@keyframes move {
+  0%,
+  100% {
+    margin: 0 0 0 -100px;
+  }
+  50% {
+    margin: 0 0 0 100px;
+  }
 }
 form {
   margin-bottom: 60px;
+}
+#menu .btn {
+  transition: all 2s;
+}
+#menu .btn:hover {
+  font-size: 20px;
 }

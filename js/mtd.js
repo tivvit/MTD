@@ -4,11 +4,12 @@
     baseUrl: 'js'
   });
 
-  define(['game', 'audio'], function(Game, audio) {
+  define(['game', 'audio', 'logo'], function(Game, audio, logo) {
     audio.createAudio();
     if (window.location.hash === "") {
       window.location.hash = "#menu";
     }
+    logo.drawLogo();
     this.name = "You";
     document.querySelector("form").addEventListener("submit", function(e) {
       return e.preventDefault();

@@ -163,10 +163,35 @@ footer {
 }
 
 #welcome {
-  margin: 200px 0 60px 0;
+  margin: 120px 0 60px 0;
   text-align: center;
+
+  svg {
+    animation: move 4s linear infinite;
+
+    .fil2 {fill:#2B2A29}
+    .fil4 {fill:#D9DADA}
+    .fil3 {fill:#E31E24}
+    .fil0 {fill:#0090CC}
+    .fil1 {fill:#25DE2C}
+  }
+}
+
+@keyframes move {
+  0%, 100% { margin: 0 0 0 -100px; }
+  50%      { margin: 0 0 0 100px; }
 }
 
 form {
   margin-bottom: 60px;
+}
+
+#menu {
+  .btn {
+    transition: all 2s;
+
+    &:hover {
+      font-size: 20px;
+    }
+  }
 }
