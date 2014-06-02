@@ -2,7 +2,7 @@
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  define(['player', 'towers/config'], function(Player, config) {
+  define(['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], function(Player, config, easystar) {
     var Game;
     return Game = (function() {
       var size;
@@ -16,6 +16,7 @@
         this.clear = __bind(this.clear, this);
         this.waveTick = __bind(this.waveTick, this);
         this.shoot = __bind(this.shoot, this);
+        this.createGameMatrix = __bind(this.createGameMatrix, this);
         this.findPath = __bind(this.findPath, this);
         var key, parent, tower, type, _i, _len, _ref;
         this.gridSize = 20;
@@ -49,7 +50,7 @@
         })(this);
         this.canvas.ondrop = (function(_this) {
           return function(e) {
-            var type, x, xx, y, yy;
+            var mat, type, x, xx, y, yy;
             e.preventDefault();
             type = e.dataTransfer.getData("Name");
             x = e.pageX - _this.canvas.offsetLeft;
@@ -58,7 +59,23 @@
               xx = Math.round(x / _this.blockSize);
               yy = Math.round(y / _this.blockSize);
               if (!Object.keys(_this.hostPlayer.grid[xx][yy]).length) {
-                _this.hostPlayer.addTower(type, xx, yy);
+                easystar = new EasyStar.js();
+                mat = _this.createGameMatrix();
+                mat[yy][xx] = 1;
+                easystar.setGrid(mat);
+                easystar.setAcceptableTiles([0]);
+                easystar.findPath(_this.hostPlayer.homePosition.x, _this.hostPlayer.homePosition.y, (_this.opponent.homePosition.x * 2) + 1, _this.opponent.homePosition.y, function(path) {
+                  var oNewP, oText;
+                  if (path === null) {
+                    oNewP = document.createElement("p");
+                    oText = document.createTextNode("Cannot block path!");
+                    oNewP.appendChild(oText);
+                    return document.querySelector("#messages").appendChild(oNewP);
+                  } else {
+                    return _this.hostPlayer.addTower(type, xx, yy);
+                  }
+                });
+                easystar.calculate();
               }
             }
             _this.blocked = false;
@@ -97,6 +114,10 @@
         this.findPathLoop = setInterval(this.findPath, 500);
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       }
+
+      Game.prototype.clearMessages = function() {
+        return document.querySelector("#messages").innerText = "";
+      };
 
       Game.prototype.findPath = function() {
         var enemy, mat, _i, _len, _ref, _results;
@@ -164,7 +185,9 @@
           this.wave++;
           document.querySelector("#wave").innerText = this.wave;
           this.hostPlayer.sendArmy(this.wave, Math.round(this.waveTime / 2));
-          return this.opponent.sendArmy(this.wave, Math.round(this.waveTime / 2));
+          this.opponent.sendArmy(this.wave, Math.round(this.waveTime / 2));
+          clearTimeout(window.clearMessages);
+          return window.clearMessages = setTimeout(this.clearMessages, 5000);
         }
       };
 

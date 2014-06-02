@@ -67,6 +67,14 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
       if(@money >= tower.price)
         @money -= tower.price;
         @grid[x][y] = tower;
+      else
+        oNewP = document.createElement("p");
+        oText = document.createTextNode("Not enough money!");
+        oNewP.appendChild(oText);
+        document.querySelector("#messages").appendChild(oNewP);
+
+        clearTimeout window.clearMessages;
+        window.clearMessages = setTimeout (-> document.querySelector("#messages").innerText = ""), 5000;
 
     sendArmy: (@wave, @time) ->
       @time *= 1000;

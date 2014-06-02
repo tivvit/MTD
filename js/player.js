@@ -96,9 +96,19 @@
       };
 
       Player.prototype.towerfactory = function(tower, x, y) {
+        var oNewP, oText;
         if (this.money >= tower.price) {
           this.money -= tower.price;
           return this.grid[x][y] = tower;
+        } else {
+          oNewP = document.createElement("p");
+          oText = document.createTextNode("Not enough money!");
+          oNewP.appendChild(oText);
+          document.querySelector("#messages").appendChild(oNewP);
+          clearTimeout(window.clearMessages);
+          return window.clearMessages = setTimeout((function() {
+            return document.querySelector("#messages").innerText = "";
+          }), 5000);
         }
       };
 

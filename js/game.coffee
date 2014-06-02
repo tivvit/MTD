@@ -1,6 +1,6 @@
 #alert "hi cofeee";
 
-define ['player', 'towers/config'], (Player, config) ->
+define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (Player, config, easystar) ->
   class Game
     size = {x : 1200, y: 600};
 
@@ -50,7 +50,24 @@ define ['player', 'towers/config'], (Player, config) ->
           yy =  Math.round(y/@blockSize)
   #        console.log xx, yy;
           if !Object.keys(@hostPlayer.grid[xx][yy]).length
-            @hostPlayer.addTower(type, xx, yy);
+            easystar = new EasyStar.js()
+            mat = @createGameMatrix();
+            mat[yy][xx] = 1;
+            easystar.setGrid(mat);
+
+            easystar.setAcceptableTiles([0]);
+            #      console.log grid
+            #      console.log opponent.homePosition.x, opponent.homePosition.y
+            easystar.findPath @hostPlayer.homePosition.x, @hostPlayer.homePosition.y, (@opponent.homePosition.x*2)+1, @opponent.homePosition.y, (path) =>
+              if (path == null)
+                oNewP = document.createElement("p");
+                oText = document.createTextNode("Cannot block path!");
+                oNewP.appendChild(oText);
+                document.querySelector("#messages").appendChild(oNewP);
+              else
+                @hostPlayer.addTower(type, xx, yy);
+            easystar.calculate();
+
   #        @opponent.addTower(type, xx, yy);
 
         @blocked = false;
@@ -102,13 +119,16 @@ define ['player', 'towers/config'], (Player, config) ->
 
       #alert "hi game"
 
+    clearMessages: ->
+      document.querySelector("#messages").innerText = "";
+
     findPath: =>
       mat = @createGameMatrix();
 
       for enemy in @hostPlayer.soldiers
         enemy.findPath(mat, @hostPlayer, @opponent);
 
-    createGameMatrix: ->
+    createGameMatrix: =>
       mat = @hostPlayer.generateMatrix();
       mat[@hostPlayer.homePosition.y][@hostPlayer.homePosition.x] = 0;
 #      console.log mat;
@@ -155,6 +175,9 @@ define ['player', 'towers/config'], (Player, config) ->
         document.querySelector("#wave").innerText = @wave;
         @hostPlayer.sendArmy(@wave, Math.round(@waveTime/2));
         @opponent.sendArmy(@wave, Math.round(@waveTime/2));
+
+        clearTimeout window.clearMessages;
+        window.clearMessages = setTimeout(@clearMessages, 5000);
 
     drawGrid: ->
       @ctx.strokeStyle = "rgba(200,200,200, .2)";
