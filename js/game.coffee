@@ -11,7 +11,7 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
       @hostPlayer = new Player(@blockSize, @gridSize);
       @opponent = new Player(@blockSize, @gridSize, true);
       @draggedOffset = {};
-      @wave = 0;
+      @wave = 30;
       @nextWave = 1;
       @waveTime = 10;
       @blocked = false;
