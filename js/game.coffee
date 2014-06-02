@@ -43,25 +43,29 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
         if(x < @gridSize*@blockSize)
           xx = Math.round(x/@blockSize)
           yy =  Math.round(y/@blockSize)
-          if !Object.keys(@hostPlayer.grid[xx][yy]).length
-            easystar = new EasyStar.js()
-            mat = @createGameMatrix();
-            mat[yy][xx] = 1;
-            easystar.setGrid(mat);
 
-            easystar.setAcceptableTiles([0]);
-            easystar.findPath @hostPlayer.homePosition.x, @hostPlayer.homePosition.y, (@opponent.homePosition.x*2)+1, @opponent.homePosition.y, (path) =>
-              if (path == null)
-                oNewP = document.createElement("p");
-                oText = document.createTextNode("Cannot block path!");
-                oNewP.appendChild(oText);
-                document.querySelector("#messages").appendChild(oNewP);
+          if(type == "delete")
+            @hostPlayer.grid[xx][yy] = {};
+          else
+            if !Object.keys(@hostPlayer.grid[xx][yy]).length
+              easystar = new EasyStar.js()
+              mat = @createGameMatrix();
+              mat[yy][xx] = 1;
+              easystar.setGrid(mat);
 
-                clearTimeout window.clearMessages;
-                window.clearMessages = setTimeout(@clearMessages, 5000);
-              else
-                @hostPlayer.addTower(type, xx, yy);
-            easystar.calculate();
+              easystar.setAcceptableTiles([0]);
+              easystar.findPath @hostPlayer.homePosition.x, @hostPlayer.homePosition.y, (@opponent.homePosition.x*2)+1, @opponent.homePosition.y, (path) =>
+                if (path == null)
+                  oNewP = document.createElement("p");
+                  oText = document.createTextNode("Cannot block path!");
+                  oNewP.appendChild(oText);
+                  document.querySelector("#messages").appendChild(oNewP);
+
+                  clearTimeout window.clearMessages;
+                  window.clearMessages = setTimeout(@clearMessages, 5000);
+                else
+                  @hostPlayer.addTower(type, xx, yy);
+              easystar.calculate();
 
         @blocked = false;
         @clear();

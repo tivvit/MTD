@@ -58,26 +58,30 @@
             if (x < _this.gridSize * _this.blockSize) {
               xx = Math.round(x / _this.blockSize);
               yy = Math.round(y / _this.blockSize);
-              if (!Object.keys(_this.hostPlayer.grid[xx][yy]).length) {
-                easystar = new EasyStar.js();
-                mat = _this.createGameMatrix();
-                mat[yy][xx] = 1;
-                easystar.setGrid(mat);
-                easystar.setAcceptableTiles([0]);
-                easystar.findPath(_this.hostPlayer.homePosition.x, _this.hostPlayer.homePosition.y, (_this.opponent.homePosition.x * 2) + 1, _this.opponent.homePosition.y, function(path) {
-                  var oNewP, oText;
-                  if (path === null) {
-                    oNewP = document.createElement("p");
-                    oText = document.createTextNode("Cannot block path!");
-                    oNewP.appendChild(oText);
-                    document.querySelector("#messages").appendChild(oNewP);
-                    clearTimeout(window.clearMessages);
-                    return window.clearMessages = setTimeout(_this.clearMessages, 5000);
-                  } else {
-                    return _this.hostPlayer.addTower(type, xx, yy);
-                  }
-                });
-                easystar.calculate();
+              if (type === "delete") {
+                _this.hostPlayer.grid[xx][yy] = {};
+              } else {
+                if (!Object.keys(_this.hostPlayer.grid[xx][yy]).length) {
+                  easystar = new EasyStar.js();
+                  mat = _this.createGameMatrix();
+                  mat[yy][xx] = 1;
+                  easystar.setGrid(mat);
+                  easystar.setAcceptableTiles([0]);
+                  easystar.findPath(_this.hostPlayer.homePosition.x, _this.hostPlayer.homePosition.y, (_this.opponent.homePosition.x * 2) + 1, _this.opponent.homePosition.y, function(path) {
+                    var oNewP, oText;
+                    if (path === null) {
+                      oNewP = document.createElement("p");
+                      oText = document.createTextNode("Cannot block path!");
+                      oNewP.appendChild(oText);
+                      document.querySelector("#messages").appendChild(oNewP);
+                      clearTimeout(window.clearMessages);
+                      return window.clearMessages = setTimeout(_this.clearMessages, 5000);
+                    } else {
+                      return _this.hostPlayer.addTower(type, xx, yy);
+                    }
+                  });
+                  easystar.calculate();
+                }
               }
             }
             _this.blocked = false;
