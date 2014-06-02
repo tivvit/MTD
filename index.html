@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <title>MTD</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/screen.css" rel="stylesheet">
+    <link rel="profile" href="http://microformats.org/profile/hcard">
 </head>
 <body>
     <div class="container">
@@ -83,7 +85,26 @@
             </div>
         </div>
 
-        <div id="media">
+        <div class="col-md-4 col-md-offset-4 clearfix">
+            <div class="vcard panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">About author</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="fn">Vít Listík</div>
+                    <div class="nickname">tivvit</div>
+                    <div><a class="url" href="http://tivvit.cz/">http://tivvit.cz/</a></div>
+                    <div class="tel">728 997 867</div>
+                    <div class="email">tivvitmail@gmail.com</div>
+                    <div class="adr">
+                        <div class="locality">Prague</div>
+                        <div class="country-name">CR</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="media" class="col-md-12">
             <audio controls id="music" autoplay="true">
                 <source src="music/mario.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
