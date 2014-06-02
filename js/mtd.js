@@ -4,7 +4,8 @@
     baseUrl: 'js'
   });
 
-  define(['game'], function(Game) {
+  define(['game', 'audio'], function(Game, audio) {
+    audio.createAudio();
     return new Game().clear();
   });
 

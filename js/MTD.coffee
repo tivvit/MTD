@@ -2,7 +2,8 @@ requirejs.config({
   baseUrl: 'js'
 });
 
-define(['game'],
-(Game) ->
+define(['game', 'audio'],
+(Game, audio) ->
+  audio.createAudio();
   new Game().clear();
 );
