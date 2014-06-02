@@ -2,7 +2,7 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
   class Enemy
     constructor: (@x, @y, @blockSize, @gridSize, @wave, @owner)->
       @name = "Enemy";
-      @lives = 10 + (@wave * .1);
+      @lives = 10 + (@wave * .3);
       @speed = .08 + (@wave * .001);
       @lastAnimated;
       @path = []
