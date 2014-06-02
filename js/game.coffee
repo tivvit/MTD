@@ -4,7 +4,7 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
   class Game
     size = {x : 1200, y: 600};
 
-    constructor: ->
+    constructor: (@name) ->
       @gridSize = 20;
       @blockSize = 30;
       @ctx = document.querySelector('#game').getContext('2d');
@@ -77,6 +77,8 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
   #        console.log e.target.dataset;
         tower.addEventListener "mousedown", (e) =>
           @draggedOffset = {x: e.offsetLeft , y: e.offsetTop};
+
+      document.querySelector("#player").textContent = @name;
 
       for key, type of config
         parent = document.querySelector("#"+type.name);

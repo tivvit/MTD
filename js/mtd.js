@@ -9,10 +9,19 @@
     if (window.location.hash === "") {
       window.location.hash = "#menu";
     }
+    this.name = "You";
+    document.querySelector("form").addEventListener("submit", function(e) {
+      return e.preventDefault();
+    });
+    document.querySelector("input[name]").addEventListener("change", (function(_this) {
+      return function(e) {
+        return _this.name = e.srcElement.value;
+      };
+    })(this));
     window.addEventListener("hashchange", (function(_this) {
       return function() {
         if (window.location.hash === "#single") {
-          return new Game();
+          return new Game(_this.name);
         }
       };
     })(this));

@@ -12,13 +12,14 @@
         y: 600
       };
 
-      function Game() {
+      function Game(name) {
+        var key, parent, tower, type, _i, _len, _ref;
+        this.name = name;
         this.animate = __bind(this.animate, this);
         this.waveTick = __bind(this.waveTick, this);
         this.shoot = __bind(this.shoot, this);
         this.createGameMatrix = __bind(this.createGameMatrix, this);
         this.findPath = __bind(this.findPath, this);
-        var key, parent, tower, type, _i, _len, _ref;
         this.gridSize = 20;
         this.blockSize = 30;
         this.ctx = document.querySelector('#game').getContext('2d');
@@ -108,6 +109,7 @@
             };
           })(this));
         }
+        document.querySelector("#player").textContent = this.name;
         for (key in config) {
           type = config[key];
           parent = document.querySelector("#" + type.name);
