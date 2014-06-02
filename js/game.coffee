@@ -33,6 +33,10 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
       @canvas.ondrop = (e) =>
         e.preventDefault();
         type = e.dataTransfer.getData("Name");
+
+        actualWidth = @canvas.offsetWidth;
+        actualHeight = @canvas.offsetHeight;
+        actualBlockSize = actualWidth/(@gridSize*2);
   #      var dx = pos[0] - img.offsetLeft;
   #    var dy = pos[1] - img.offsetTop;
   #      console.log e.pageX - @draggedOffset.x, e.pageY - @draggedOffset.y;
@@ -40,9 +44,11 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
         x = e.pageX - @canvas.offsetLeft;# + @draggedOffset.x;
         y = e.pageY - @canvas.offsetTop;# + @draggedOffset.y;
 
-        if(x < @gridSize*@blockSize)
-          xx = Math.round(x/@blockSize)
-          yy =  Math.round(y/@blockSize)
+        console.log actualBlockSize, x, y
+
+        if(x < @gridSize*actualBlockSize)
+          xx = Math.floor(x/actualBlockSize)
+          yy =  Math.floor(y/actualBlockSize)
 
           if(type == "delete")
             @hostPlayer.grid[xx][yy] = {};
@@ -75,9 +81,9 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
           e.dataTransfer.setData("Name",e.target.dataset.name);
   #        console.log e.target.dataset;
   #        console.log "draged";
-        tower.onmousedown = (e)=>
-  #        console.log e.pageX, e.target.id, e.srcElement.offsetLeft, e.srcElement.clientX, e.srcElement.parentElement()..clientX
-          @draggedOffset = {x: e.layerX , y: e.layerY}; #e.pageX - e.target.offsetLeft
+        tower.onmousedown = (e) =>
+#          console.log e.pageX, e.pageY, e.srcElement, e.srcElement.pageY, e.pageX- e.srcElement.page, e.pageY-e.srcElement.pageY, e.srcElement.clientX, e.srcElement.parentElement
+          @draggedOffset = {x: e.offsetLeft , y: e.offsetTop}; #e.pageX - e.target.offsetLeft
   #        console.log(@draggedOffset);
 
       for key, type of config

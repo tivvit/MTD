@@ -11,7 +11,7 @@
         this.wave = wave;
         this.owner = owner;
         this.name = "Enemy";
-        this.lives = 10 + (this.wave * .3);
+        this.lives = 10 + (this.wave * .5);
         this.speed = .08 + (this.wave * .001);
         this.lastAnimated;
         this.path = [];

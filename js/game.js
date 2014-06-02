@@ -50,14 +50,18 @@
         })(this);
         this.canvas.ondrop = (function(_this) {
           return function(e) {
-            var mat, type, x, xx, y, yy;
+            var actualBlockSize, actualHeight, actualWidth, mat, type, x, xx, y, yy;
             e.preventDefault();
             type = e.dataTransfer.getData("Name");
+            actualWidth = _this.canvas.offsetWidth;
+            actualHeight = _this.canvas.offsetHeight;
+            actualBlockSize = actualWidth / (_this.gridSize * 2);
             x = e.pageX - _this.canvas.offsetLeft;
             y = e.pageY - _this.canvas.offsetTop;
-            if (x < _this.gridSize * _this.blockSize) {
-              xx = Math.round(x / _this.blockSize);
-              yy = Math.round(y / _this.blockSize);
+            console.log(actualBlockSize, x, y);
+            if (x < _this.gridSize * actualBlockSize) {
+              xx = Math.floor(x / actualBlockSize);
+              yy = Math.floor(y / actualBlockSize);
               if (type === "delete") {
                 _this.hostPlayer.grid[xx][yy] = {};
               } else {
@@ -99,8 +103,8 @@
           tower.onmousedown = (function(_this) {
             return function(e) {
               return _this.draggedOffset = {
-                x: e.layerX,
-                y: e.layerY
+                x: e.offsetLeft,
+                y: e.offsetTop
               };
             };
           })(this);
