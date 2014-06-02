@@ -11,7 +11,7 @@
         this.wave = wave;
         this.owner = owner;
         this.name = "Enemy";
-        this.lives = 500 + (this.wave * .1);
+        this.lives = 10 + (this.wave * .1);
         this.speed = .08 + (this.wave * .001);
         this.lastAnimated;
         this.path = [];
@@ -69,12 +69,17 @@
       };
 
       Enemy.prototype.findPath = function(grid, host, opponent) {
-        var pos;
+        var ox, pos;
         easystar = new EasyStar.js();
         easystar.setGrid(grid);
         easystar.setAcceptableTiles([0]);
         pos = this.position();
-        easystar.findPath(pos.x, pos.y, (opponent.homePosition.x * 2) + 1, opponent.homePosition.y, (function(_this) {
+        if (!opponent.isOpponent) {
+          ox = opponent.homePosition.x;
+        } else {
+          ox = (opponent.homePosition.x * 2) + 1;
+        }
+        easystar.findPath(pos.x, pos.y, ox, opponent.homePosition.y, (function(_this) {
           return function(path) {
             if (path === null) {
               return console.log("Path was not found.");

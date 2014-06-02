@@ -2,7 +2,7 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
   class Enemy
     constructor: (@x, @y, @blockSize, @gridSize, @wave, @owner)->
       @name = "Enemy";
-      @lives = 500 + (@wave * .1);
+      @lives = 10 + (@wave * .1);
       @speed = .08 + (@wave * .001);
       @lastAnimated;
       @path = []
@@ -61,7 +61,11 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
       pos = @position();
 #      console.log grid
 #      console.log opponent.homePosition.x, opponent.homePosition.y
-      easystar.findPath pos.x, pos.y, (opponent.homePosition.x*2)+1, opponent.homePosition.y, (path) =>
+      if !opponent.isOpponent
+        ox = opponent.homePosition.x
+      else
+        ox = (opponent.homePosition.x*2)+1
+      easystar.findPath pos.x, pos.y, ox, opponent.homePosition.y, (path) =>
         if (path == null)
           console.log("Path was not found.");
         else

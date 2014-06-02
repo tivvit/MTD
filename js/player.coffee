@@ -2,7 +2,7 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
   class Player
     constructor: (@blockSize, @gridSize, @isOpponent) ->
       @shift = 0;
-      @lives = 1000;
+      @lives = 10;
       @isOpponent ?= false;
       @homePosition =  {x: 0, y: 9};
       @grid = {};
@@ -87,7 +87,10 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
         count--;
 
     addSoldier: =>
-      @soldiers.push(new Enemy(@blockSize*@homePosition.x, @blockSize*@homePosition.y, @blockSize, @gridSize, @wave, @));
+      if !@isOpponent
+        @soldiers.push(new Enemy(@blockSize*@homePosition.x, @blockSize*@homePosition.y, @blockSize, @gridSize, @wave, @));
+      else
+        @soldiers.push(new Enemy(@gridSize*@blockSize+@blockSize*@homePosition.x, @blockSize*@homePosition.y, @blockSize, @gridSize, @wave, @));
 
     draw: (@ctx) ->
   #    console.log @grid;
@@ -114,17 +117,17 @@ define ['home', 'enemy', 'towers/fire', 'towers/nature', 'towers/water', 'towers
           if Object.keys(@copy[x][y]).length
             @copy[x][y].draw(@ctx,@shift+x*@blockSize,y*@blockSize);
 
-    clone: (obj) ->
-      if not obj? or typeof obj isnt 'object'
-        return obj
-
-      console.log obj;
-      newInstance = new obj.constructor(obj.x, obj.y);
-
-      for key of obj
-        newInstance[key] = @clone obj[key]
-
-      return newInstance
+#    clone: (obj) ->
+#      if not obj? or typeof obj isnt 'object'
+#        return obj
+#
+#      console.log obj;
+#      newInstance = new obj.constructor(obj.x, obj.y);
+#
+#      for key of obj
+#        newInstance[key] = @clone obj[key]
+#
+#      return newInstance
 
 #  return Player();
 #window.Player = Player;

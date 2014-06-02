@@ -64,6 +64,9 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
                 oText = document.createTextNode("Cannot block path!");
                 oNewP.appendChild(oText);
                 document.querySelector("#messages").appendChild(oNewP);
+
+                clearTimeout window.clearMessages;
+                window.clearMessages = setTimeout(@clearMessages, 5000);
               else
                 @hostPlayer.addTower(type, xx, yy);
             easystar.calculate();
@@ -127,6 +130,8 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
 
       for enemy in @hostPlayer.soldiers
         enemy.findPath(mat, @hostPlayer, @opponent);
+      for enemy in @opponent.soldiers
+        enemy.findPath(mat, @opponent, @hostPlayer);
 
     createGameMatrix: =>
       mat = @hostPlayer.generateMatrix();
@@ -147,8 +152,7 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
       for x in [0...@gridSize]
         for y in [0...@gridSize]
           if Object.keys(@hostPlayer.grid[x][y]).length
-            if(@hostPlayer.grid[x][y].name != "Home")
-              @hostPlayer.grid[x][y].shoot(@hostPlayer.soldiers, @hostPlayer);
+            @hostPlayer.grid[x][y].shoot(@opponent.soldiers, @hostPlayer);
           if Object.keys(@opponent.grid[x][y]).length
             @opponent.grid[x][y].shoot(@hostPlayer.soldiers, @opponent);
 
@@ -159,11 +163,15 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
         @end = true;
 
       if @hostPlayer.lives <= 0
-#        alert "You Lose";
-        0;
+        oNewP = document.createElement("p");
+        oText = document.createTextNode("You Lose!");
+        oNewP.appendChild(oText);
+        document.querySelector("#messages").appendChild(oNewP);
       if @opponent.lives <= 0
-#        alert "You Won";
-        0;
+        oNewP = document.createElement("p");
+        oText = document.createTextNode("You won!");
+        oNewP.appendChild(oText);
+        document.querySelector("#messages").appendChild(oNewP);
 
     waveTick: =>
       @nextWave -= 1;
@@ -173,11 +181,8 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
         @nextWave = @waveTime;
         @wave++;
         document.querySelector("#wave").innerText = @wave;
-        @hostPlayer.sendArmy(@wave, Math.round(@waveTime/2));
+#        @hostPlayer.sendArmy(@wave, Math.round(@waveTime/2));
         @opponent.sendArmy(@wave, Math.round(@waveTime/2));
-
-        clearTimeout window.clearMessages;
-        window.clearMessages = setTimeout(@clearMessages, 5000);
 
     drawGrid: ->
       @ctx.strokeStyle = "rgba(200,200,200, .2)";
@@ -216,6 +221,10 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
   #      @ctx.clearRect(enemy.x, enemy.y, 30, 30);
         enemy.draw @ctx;
   #      enemy.x++;
+
+      for enemy in @opponent.soldiers
+        #      @ctx.clearRect(enemy.x, enemy.y, 30, 30);
+        enemy.draw @ctx;
 
       if !@end
         requestAnimationFrame @clear;

@@ -15,7 +15,7 @@ define ['shot'], (Shot) ->
             ekey = @enemies.indexOf(shot.enemy)
             if ekey != -1
               @enemies.splice(ekey, 1);
-              @owner.money += 5; #income
+              @owner.money += 4; #income
           @shots.splice(key, 1);
 
 

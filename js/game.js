@@ -70,7 +70,9 @@
                     oNewP = document.createElement("p");
                     oText = document.createTextNode("Cannot block path!");
                     oNewP.appendChild(oText);
-                    return document.querySelector("#messages").appendChild(oNewP);
+                    document.querySelector("#messages").appendChild(oNewP);
+                    clearTimeout(window.clearMessages);
+                    return window.clearMessages = setTimeout(_this.clearMessages, 5000);
                   } else {
                     return _this.hostPlayer.addTower(type, xx, yy);
                   }
@@ -120,13 +122,18 @@
       };
 
       Game.prototype.findPath = function() {
-        var enemy, mat, _i, _len, _ref, _results;
+        var enemy, mat, _i, _j, _len, _len1, _ref, _ref1, _results;
         mat = this.createGameMatrix();
         _ref = this.hostPlayer.soldiers;
-        _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           enemy = _ref[_i];
-          _results.push(enemy.findPath(mat, this.hostPlayer, this.opponent));
+          enemy.findPath(mat, this.hostPlayer, this.opponent);
+        }
+        _ref1 = this.opponent.soldiers;
+        _results = [];
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          enemy = _ref1[_j];
+          _results.push(enemy.findPath(mat, this.opponent, this.hostPlayer));
         }
         return _results;
       };
@@ -150,13 +157,11 @@
       };
 
       Game.prototype.shoot = function() {
-        var x, y, _i, _j, _ref, _ref1;
+        var oNewP, oText, x, y, _i, _j, _ref, _ref1;
         for (x = _i = 0, _ref = this.gridSize; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
           for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
             if (Object.keys(this.hostPlayer.grid[x][y]).length) {
-              if (this.hostPlayer.grid[x][y].name !== "Home") {
-                this.hostPlayer.grid[x][y].shoot(this.hostPlayer.soldiers, this.hostPlayer);
-              }
+              this.hostPlayer.grid[x][y].shoot(this.opponent.soldiers, this.hostPlayer);
             }
             if (Object.keys(this.opponent.grid[x][y]).length) {
               this.opponent.grid[x][y].shoot(this.hostPlayer.soldiers, this.opponent);
@@ -170,10 +175,16 @@
           this.end = true;
         }
         if (this.hostPlayer.lives <= 0) {
-          0;
+          oNewP = document.createElement("p");
+          oText = document.createTextNode("You Lose!");
+          oNewP.appendChild(oText);
+          document.querySelector("#messages").appendChild(oNewP);
         }
         if (this.opponent.lives <= 0) {
-          return 0;
+          oNewP = document.createElement("p");
+          oText = document.createTextNode("You won!");
+          oNewP.appendChild(oText);
+          return document.querySelector("#messages").appendChild(oNewP);
         }
       };
 
@@ -184,10 +195,7 @@
           this.nextWave = this.waveTime;
           this.wave++;
           document.querySelector("#wave").innerText = this.wave;
-          this.hostPlayer.sendArmy(this.wave, Math.round(this.waveTime / 2));
-          this.opponent.sendArmy(this.wave, Math.round(this.waveTime / 2));
-          clearTimeout(window.clearMessages);
-          return window.clearMessages = setTimeout(this.clearMessages, 5000);
+          return this.opponent.sendArmy(this.wave, Math.round(this.waveTime / 2));
         }
       };
 
@@ -216,7 +224,7 @@
       };
 
       Game.prototype.clear = function() {
-        var enemy, _i, _len, _ref;
+        var enemy, _i, _j, _len, _len1, _ref, _ref1;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.fillStyle = "rgb(230, 230, 230)";
         this.ctx.fillRect(0, 0, size.x, size.y);
@@ -235,6 +243,11 @@
         _ref = this.hostPlayer.soldiers;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           enemy = _ref[_i];
+          enemy.draw(this.ctx);
+        }
+        _ref1 = this.opponent.soldiers;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          enemy = _ref1[_j];
           enemy.draw(this.ctx);
         }
         if (!this.end) {

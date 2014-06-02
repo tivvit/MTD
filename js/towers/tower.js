@@ -20,7 +20,7 @@
               ekey = this.enemies.indexOf(shot.enemy);
               if (ekey !== -1) {
                 this.enemies.splice(ekey, 1);
-                this.owner.money += 5;
+                this.owner.money += 4;
               }
             }
             _results.push(this.shots.splice(key, 1));

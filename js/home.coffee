@@ -14,11 +14,11 @@ define [], () ->
       for key,enemy of @enemies
         pos = enemy.position();
 
-        if pos.x >= 20
+        if @owner.isOpponent && pos.x >= 20
           pos.x -= 20;
 
-          if pos.x == @x && pos.y == @y
-              @enemies.splice(key, 1);
-              @owner.lives--;
+        if pos.x == @x && pos.y == @y
+            @enemies.splice(key, 1);
+            @owner.lives--;
 
 #  window.Home = Home;

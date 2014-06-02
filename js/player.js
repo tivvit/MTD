@@ -12,7 +12,7 @@
         this.isOpponent = isOpponent;
         this.addSoldier = __bind(this.addSoldier, this);
         this.shift = 0;
-        this.lives = 1000;
+        this.lives = 10;
         if (this.isOpponent == null) {
           this.isOpponent = false;
         }
@@ -130,7 +130,11 @@
       };
 
       Player.prototype.addSoldier = function() {
-        return this.soldiers.push(new Enemy(this.blockSize * this.homePosition.x, this.blockSize * this.homePosition.y, this.blockSize, this.gridSize, this.wave, this));
+        if (!this.isOpponent) {
+          return this.soldiers.push(new Enemy(this.blockSize * this.homePosition.x, this.blockSize * this.homePosition.y, this.blockSize, this.gridSize, this.wave, this));
+        } else {
+          return this.soldiers.push(new Enemy(this.gridSize * this.blockSize + this.blockSize * this.homePosition.x, this.blockSize * this.homePosition.y, this.blockSize, this.gridSize, this.wave, this));
+        }
       };
 
       Player.prototype.draw = function(ctx) {
@@ -156,19 +160,6 @@
           }).call(this));
         }
         return _results;
-      };
-
-      Player.prototype.clone = function(obj) {
-        var key, newInstance;
-        if ((obj == null) || typeof obj !== 'object') {
-          return obj;
-        }
-        console.log(obj);
-        newInstance = new obj.constructor(obj.x, obj.y);
-        for (key in obj) {
-          newInstance[key] = this.clone(obj[key]);
-        }
-        return newInstance;
       };
 
       return Player;

@@ -25,14 +25,12 @@
         for (key in _ref) {
           enemy = _ref[key];
           pos = enemy.position();
-          if (pos.x >= 20) {
+          if (this.owner.isOpponent && pos.x >= 20) {
             pos.x -= 20;
-            if (pos.x === this.x && pos.y === this.y) {
-              this.enemies.splice(key, 1);
-              _results.push(this.owner.lives--);
-            } else {
-              _results.push(void 0);
-            }
+          }
+          if (pos.x === this.x && pos.y === this.y) {
+            this.enemies.splice(key, 1);
+            _results.push(this.owner.lives--);
           } else {
             _results.push(void 0);
           }
