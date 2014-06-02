@@ -58,7 +58,6 @@
             actualBlockSize = actualWidth / (_this.gridSize * 2);
             x = e.pageX - _this.canvas.offsetLeft;
             y = e.pageY - _this.canvas.offsetTop;
-            console.log(actualBlockSize, x, y);
             if (x < _this.gridSize * actualBlockSize) {
               xx = Math.floor(x / actualBlockSize);
               yy = Math.floor(y / actualBlockSize);
