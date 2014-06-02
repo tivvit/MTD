@@ -26,7 +26,7 @@
         this.opponent = new Player(this.blockSize, this.gridSize, true);
         this.draggedOffset = {};
         this.wave = 0;
-        this.nextWave = 1;
+        this.nextWave = 30;
         this.waveTime = 10;
         this.blocked = false;
         this.end = false;
