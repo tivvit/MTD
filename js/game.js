@@ -109,11 +109,11 @@
           type = config[key];
           parent = document.querySelector("#" + type.name);
           parent.querySelector("img").src = type.img;
-          parent.querySelector(".name").innerText = type.name;
-          parent.querySelector(".attack").innerText = type.attack;
-          parent.querySelector(".speed").innerText = type.speed;
-          parent.querySelector(".range").innerText = type.range;
-          parent.querySelector(".price").innerText = type.price;
+          parent.querySelector(".name").textContent = type.name;
+          parent.querySelector(".attack").textContent = type.attack;
+          parent.querySelector(".speed").textContent = type.speed;
+          parent.querySelector(".range").textContent = type.range;
+          parent.querySelector(".price").textContent = type.price;
         }
         this.waveLoop = setInterval(this.waveTick, 1000);
         this.shootLoop = setInterval(this.shoot, 100);
@@ -122,7 +122,7 @@
       }
 
       Game.prototype.clearMessages = function() {
-        return document.querySelector("#messages").innerText = "";
+        return document.querySelector("#messages").textContent = "";
       };
 
       Game.prototype.findPath = function() {
@@ -194,11 +194,11 @@
 
       Game.prototype.waveTick = function() {
         this.nextWave -= 1;
-        document.querySelector("#next").innerText = this.nextWave;
+        document.querySelector("#next").textContent = this.nextWave;
         if (this.nextWave === 0) {
           this.nextWave = this.waveTime;
           this.wave++;
-          document.querySelector("#wave").innerText = this.wave;
+          document.querySelector("#wave").textContent = this.wave;
           return this.opponent.sendArmy(this.wave, Math.round(this.waveTime / 2));
         }
       };
@@ -236,11 +236,11 @@
         this.drawSeparator();
         this.hostPlayer.draw(this.ctx);
         this.opponent.draw(this.ctx);
-        document.querySelector("#lives").innerText = this.hostPlayer.lives;
-        document.querySelector("#coins").innerText = this.hostPlayer.money;
-        document.querySelector("#opponentLives").innerText = this.opponent.lives;
-        document.querySelector("#wave").innerText = this.wave;
-        document.querySelector("#next").innerText = this.nextWave;
+        document.querySelector("#lives").textContent = this.hostPlayer.lives;
+        document.querySelector("#coins").textContent = this.hostPlayer.money;
+        document.querySelector("#opponentLives").textContent = this.opponent.lives;
+        document.querySelector("#wave").textContent = this.wave;
+        document.querySelector("#next").textContent = this.nextWave;
         if (this.blocked) {
           this.showBlocked();
         }

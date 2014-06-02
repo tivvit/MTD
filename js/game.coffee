@@ -83,11 +83,11 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
       for key, type of config
         parent = document.querySelector("#"+type.name);
         parent.querySelector("img").src = type.img;
-        parent.querySelector(".name").innerText = type.name;
-        parent.querySelector(".attack").innerText = type.attack;
-        parent.querySelector(".speed").innerText = type.speed;
-        parent.querySelector(".range").innerText = type.range;
-        parent.querySelector(".price").innerText = type.price;
+        parent.querySelector(".name").textContent = type.name;
+        parent.querySelector(".attack").textContent = type.attack;
+        parent.querySelector(".speed").textContent = type.speed;
+        parent.querySelector(".range").textContent = type.range;
+        parent.querySelector(".price").textContent = type.price;
 
       @waveLoop = setInterval @waveTick, 1000;
       @shootLoop = setInterval @shoot, 100;
@@ -97,7 +97,7 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
       window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
     clearMessages: ->
-      document.querySelector("#messages").innerText = "";
+      document.querySelector("#messages").textContent = "";
 
     findPath: =>
       mat = @createGameMatrix();
@@ -149,12 +149,12 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
 
     waveTick: =>
       @nextWave -= 1;
-      document.querySelector("#next").innerText = @nextWave;
+      document.querySelector("#next").textContent = @nextWave;
 
       if @nextWave == 0
         @nextWave = @waveTime;
         @wave++;
-        document.querySelector("#wave").innerText = @wave;
+        document.querySelector("#wave").textContent = @wave;
 #        @hostPlayer.sendArmy(@wave, Math.round(@waveTime/2));
         @opponent.sendArmy(@wave, Math.round(@waveTime/2));
 
@@ -180,13 +180,13 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
       @hostPlayer.draw(@ctx);
       @opponent.draw(@ctx);
 
-      document.querySelector("#lives").innerText = @hostPlayer.lives;
-      document.querySelector("#coins").innerText = @hostPlayer.money;
+      document.querySelector("#lives").textContent = @hostPlayer.lives;
+      document.querySelector("#coins").textContent = @hostPlayer.money;
 
-      document.querySelector("#opponentLives").innerText = @opponent.lives;
+      document.querySelector("#opponentLives").textContent = @opponent.lives;
 
-      document.querySelector("#wave").innerText = @wave;
-      document.querySelector("#next").innerText = @nextWave;
+      document.querySelector("#wave").textContent = @wave;
+      document.querySelector("#next").textContent = @nextWave;
 
       if @blocked
         @showBlocked();
