@@ -6,7 +6,13 @@
 
   define(['game', 'audio'], function(Game, audio) {
     audio.createAudio();
-    return new Game().clear();
+    new Game().clear();
+    window.addEventListener("online", function() {
+      return alert("Connection restored");
+    });
+    return window.addEventListener("offline", function() {
+      return alert("Connection lost");
+    });
   });
 
 }).call(this);
