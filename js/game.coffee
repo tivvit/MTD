@@ -21,7 +21,6 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
 
       @canvas.ondragover = (e) =>
         e.preventDefault();
-  #      console.log "oo";
 
       @canvas.ondragenter = (e) =>
         @blocked = true;
@@ -30,11 +29,9 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
         e.preventDefault();
         @blocked = false;
         @clear();
-      #      console.log "oo";
 
       @canvas.ondrop = (e) =>
         e.preventDefault();
-  #      console.log "haha";
         type = e.dataTransfer.getData("Name");
   #      var dx = pos[0] - img.offsetLeft;
   #    var dy = pos[1] - img.offsetTop;
@@ -43,12 +40,9 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
         x = e.pageX - @canvas.offsetLeft;# + @draggedOffset.x;
         y = e.pageY - @canvas.offsetTop;# + @draggedOffset.y;
 
-  #      console.log x, y;
-
         if(x < @gridSize*@blockSize)
           xx = Math.round(x/@blockSize)
           yy =  Math.round(y/@blockSize)
-  #        console.log xx, yy;
           if !Object.keys(@hostPlayer.grid[xx][yy]).length
             easystar = new EasyStar.js()
             mat = @createGameMatrix();
@@ -56,8 +50,6 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
             easystar.setGrid(mat);
 
             easystar.setAcceptableTiles([0]);
-            #      console.log grid
-            #      console.log opponent.homePosition.x, opponent.homePosition.y
             easystar.findPath @hostPlayer.homePosition.x, @hostPlayer.homePosition.y, (@opponent.homePosition.x*2)+1, @opponent.homePosition.y, (path) =>
               if (path == null)
                 oNewP = document.createElement("p");
@@ -71,11 +63,8 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
                 @hostPlayer.addTower(type, xx, yy);
             easystar.calculate();
 
-  #        @opponent.addTower(type, xx, yy);
-
         @blocked = false;
         @clear();
-  #      console.log data;
 
       for tower in document.querySelectorAll('.tower')
         tower.ondragstart = (e) =>
@@ -102,25 +91,6 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
 
       window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
       window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-  #    @step();
-
-  #  step: =>
-  #
-  ##    @clear();
-  ##    ctx.clearRect(0, 0, @canvas.width, @canvas.height);
-  #
-  #    requestAnimationFrame @step;
-  #    console.log @hostPlayer.soldiers.length;
-  #
-  #    for enemy in @hostPlayer.soldiers
-  ##      @ctx.clearRect(enemy.x, enemy.y, 30, 30);
-  #      enemy.draw @ctx;
-  #      enemy.x++;
-
-
-
-      #alert "hi game"
 
     clearMessages: ->
       document.querySelector("#messages").innerText = "";
@@ -218,12 +188,9 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
         @showBlocked();
 
       for enemy in @hostPlayer.soldiers
-  #      @ctx.clearRect(enemy.x, enemy.y, 30, 30);
         enemy.draw @ctx;
-  #      enemy.x++;
 
       for enemy in @opponent.soldiers
-        #      @ctx.clearRect(enemy.x, enemy.y, 30, 30);
         enemy.draw @ctx;
 
       if !@end
@@ -238,8 +205,6 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
           if Object.keys(@hostPlayer.grid[x][y]).length
             @ctx.fillRect(x*@blockSize, y*@blockSize, @blockSize, @blockSize);
 
-
-
     preload: ->
       imageList = [
         "img/alien.png",
@@ -252,6 +217,3 @@ define ['player', 'towers/config', 'js/bower_components/easystar.js/bin/easystar
       for img in imageList
         imageObject = new Image();
         imageObject.src = img;
-
-#return Game;
-#  window.Game = Game;

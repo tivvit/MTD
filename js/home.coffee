@@ -6,7 +6,6 @@ define [], () ->
     draw: (ctx, xx, yy) ->
       image = new Image();
       image.src = "img/home.svg";
-  #    @ctx.fillRect(@x, @y, 30, 30);
   #    image.onload = =>
       ctx.drawImage(image,xx, yy, 30, 30);
 
@@ -20,5 +19,3 @@ define [], () ->
         if pos.x == @x && pos.y == @y
             @enemies.splice(key, 1);
             @owner.lives--;
-
-#  window.Home = Home;

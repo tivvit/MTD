@@ -9,5 +9,3 @@ define ['towers/tower', 'towers/config'], (Tower, config) ->
       @speed = config.wind.speed;
       @lastShot = 0;
       @shots = [];
-
-#window.Wind = Wind;

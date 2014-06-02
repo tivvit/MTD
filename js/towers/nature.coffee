@@ -9,6 +9,3 @@ define ['towers/tower', 'towers/config'], (Tower, config) ->
       @speed = config.nature.speed;
       @lastShot = 0;
       @shots = []
-
-
-#window.Nature = Nature;

@@ -45,22 +45,16 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
       pos = {};
       x = Math.round((@x+@xshift)/@blockSize);
       y = Math.round((@y+@yshift)/@blockSize);
-#      if x >= 20
-#        x -= 20;
-#      if y >= 20
-#        y -=20;
+
       pos["x"] = x;
       pos["y"] = y;
       return pos;
 
     findPath: (grid, host, opponent)->
-#      console.log EasyStar.js()
       easystar = new EasyStar.js()
       easystar.setGrid(grid);
       easystar.setAcceptableTiles([0]);
       pos = @position();
-#      console.log grid
-#      console.log opponent.homePosition.x, opponent.homePosition.y
       if !opponent.isOpponent
         ox = opponent.homePosition.x
       else
@@ -71,6 +65,3 @@ define ['js/bower_components/easystar.js/bin/easystar-0.1.7.min.js'], (easystar)
         else
           @path = path;
       easystar.calculate();
-
-
-#window.Enemy = Enemy;

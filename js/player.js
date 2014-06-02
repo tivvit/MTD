@@ -43,8 +43,7 @@
       }
 
       Player.prototype.findMirrored = function(x, y) {
-        var half, pos, xx;
-        half = this.gridSize / 2;
+        var pos, xx;
         xx = this.gridSize - 1 - x;
         pos = {};
         pos["x"] = xx;
@@ -140,7 +139,6 @@
       Player.prototype.draw = function(ctx) {
         var x, y, _i, _ref, _results;
         this.ctx = ctx;
-        this.copy = this.grid;
         if (this.isOpponent) {
           this.shift = this.gridSize * this.blockSize;
         }
@@ -150,8 +148,8 @@
             var _j, _ref1, _results1;
             _results1 = [];
             for (y = _j = 0, _ref1 = this.gridSize; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; y = 0 <= _ref1 ? ++_j : --_j) {
-              if (Object.keys(this.copy[x][y]).length) {
-                _results1.push(this.copy[x][y].draw(this.ctx, this.shift + x * this.blockSize, y * this.blockSize));
+              if (Object.keys(this.grid[x][y]).length) {
+                _results1.push(this.grid[x][y].draw(this.ctx, this.shift + x * this.blockSize, y * this.blockSize));
               } else {
                 _results1.push(void 0);
               }

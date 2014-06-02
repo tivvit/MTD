@@ -29,9 +29,6 @@ define [], () ->
 
       @xx += ((@ex-@x)*(@speed * dt))/Math.sqrt(Math.pow(@x-@ex,2)+Math.pow(@y-@ey,2));
       @yy += ((@ey-@y)*(@speed * dt))/Math.sqrt(Math.pow(@x-@ex,2)+Math.pow(@y-@ey,2));
-#      @xx += (@speed * dt);
-#      @yy += (@speed * dt);
-
 
       if @x >= @ex
         if @y >= @ey
@@ -52,5 +49,3 @@ define [], () ->
       ctx.fillStyle = @type;
       ctx.arc(@xx,@yy,4,0,2*Math.PI);
       ctx.fill();
-
-#window.Shot = Shot;

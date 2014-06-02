@@ -9,5 +9,3 @@ define ['towers/tower', 'towers/config'], (Tower, config) ->
       @speed = config.water.speed;
       @lastShot = 0;
       @shots = [];
-
-#window.Water = Water;
